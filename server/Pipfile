@@ -5,10 +5,9 @@ name = "pypi"
 
 [packages]
 django = "*"
-pylint = "*"
+djangorestframework = "*"
 psycopg2-binary = "*"
 autopep8 = "*"
-djangorestframework = "*"
 pyjwt = "*"
 
 [dev-packages]
