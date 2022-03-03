@@ -18,4 +18,4 @@ class Drink(models.Model):
 
     # reformat record string on django admin
     def __str__(self):
-        return f"{self.name} ({self.total_measures} measures)"
+        return f"{self.name}"

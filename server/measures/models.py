@@ -20,3 +20,7 @@ class Measure(models.Model):
         related_name = "measures",
         on_delete = models.CASCADE # if user is deleted their owned measures are also deleted. Can later add validation to prevent user deletion unless they have traded/drunk all their measures
     )
+
+    # reformat string on admin site
+    def __str__(self):
+        return f"{self.drink} - {self.measure_unit_name} ({self.owner})"
