@@ -1,0 +1,44 @@
+[
+{
+  "model": "drinks.drink",
+  "pk": 1,
+  "fields": {
+    "name": "Hop Gun Double IPA",
+    "total_volume": 28400,
+    "abv": "8.0",
+    "total_measures": 100,
+    "measures_remaining": 100,
+    "created_at": "2022-03-03T10:38:38.087Z",
+    "expiry_date": "2022-03-25T00:00:00Z",
+    "image": "https://i.imgur.com/6Pdx52U.png"
+  }
+},
+{
+  "model": "drinks.drink",
+  "pk": 2,
+  "fields": {
+    "name": "Sparkle Bunny Red Wine",
+    "total_volume": 17500,
+    "abv": "12.5",
+    "total_measures": 100,
+    "measures_remaining": 100,
+    "created_at": "2022-03-03T11:51:36.091Z",
+    "expiry_date": "2022-03-18T00:00:00Z",
+    "image": "https://i.imgur.com/jUci1Ut.png"
+  }
+},
+{
+  "model": "drinks.drink",
+  "pk": 3,
+  "fields": {
+    "name": "Frangelico",
+    "total_volume": 700,
+    "abv": "20.0",
+    "total_measures": 28,
+    "measures_remaining": 28,
+    "created_at": "2022-03-03T12:06:23.490Z",
+    "expiry_date": "2022-06-30T00:00:00Z",
+    "image": "https://i.imgur.com/lUWy6gD.png"
+  }
+}
+]
