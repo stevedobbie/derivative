@@ -58,10 +58,7 @@ class MeasureDetailView(APIView):
 
     def put(self, request, pk):
         measure_to_update = self.get_measure(pk=pk)
-        print('Measure_to_update ---->', measure_to_update)
-        print('Request_data ---->', request.data)
         serialized_measure = MeasureSerializer(measure_to_update, data=request.data)
-        print('Serialised_measure ---->', serialized_measure)
         try:
             serialized_measure.is_valid()
             serialized_measure.save()

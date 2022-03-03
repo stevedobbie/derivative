@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'jwt_auth',
     'drinks',
-    'measures'
+    'measures',
+    'transactions'
 ]
 
 MIDDLEWARE = [
