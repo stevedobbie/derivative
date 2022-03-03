@@ -7,6 +7,7 @@ from django.db import IntegrityError
 # Models and serializers
 from .models import Drink
 from .serializers.common import DrinkSerializer
+from .serializers.populated import PopulatedDrinkSerializer
 
 # Permissions classes
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -32,5 +33,5 @@ class DrinkDetailView(APIView):
     # if drinks exists return the record matching the passed in pk
     def get(self, _request, pk):
         drink = self.get_drink(pk=pk)
-        serialized_drink = DrinkSerializer(drink)
+        serialized_drink = PopulatedDrinkSerializer(drink)
         return Response(serialized_drink.data, status=status.HTTP_200_OK)
