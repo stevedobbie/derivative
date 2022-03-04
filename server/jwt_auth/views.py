@@ -51,3 +51,7 @@ class LoginView(APIView):
             'token': token,
             'message': f"Welcome back {user_to_login.username}"
         }, status.HTTP_202_ACCEPTED)
+
+# class ProfileView(APIView):
+
+#     def get(self, _request):
