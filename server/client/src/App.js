@@ -1,16 +1,22 @@
 import React, { useEffect } from 'react'
-import axios from 'axios'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import SiteNavBar from './components/SiteNavBar'
+import { ChakraProvider } from '@chakra-ui/react'
 
 function App() {
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await axios.get('/api/drinks/') // * <-- replace with your endpoint
-      console.log(data)
-    }
-    getData()
-  })
 
-  return <h1>Hello World</h1>
+  return (
+    <>
+      <ChakraProvider>
+        <BrowserRouter>
+          <SiteNavBar />
+          {/* <Routes> */}
+            {/* To be added */}
+          {/* </Routes> */}
+        </BrowserRouter>
+      </ChakraProvider>
+    </>
+  )
 }
 
 export default App
