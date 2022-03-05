@@ -1,0 +1,940 @@
+[
+{
+  "model": "measures.measure",
+  "pk": 1,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.05",
+    "drunk": false,
+    "created_at": "2022-03-03T16:10:18.522Z",
+    "updated_at": "2022-03-05T14:56:29.753Z",
+    "drink": 1,
+    "owner": 8
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 2,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.15",
+    "drunk": false,
+    "created_at": "2022-03-03T16:22:10.576Z",
+    "updated_at": "2022-03-05T14:54:19.802Z",
+    "drink": 1,
+    "owner": 8
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 3,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.40",
+    "drunk": false,
+    "created_at": "2022-03-03T16:22:45.186Z",
+    "updated_at": "2022-03-03T16:22:45.186Z",
+    "drink": 2,
+    "owner": 5
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 4,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.20",
+    "drunk": true,
+    "created_at": "2022-03-03T16:23:56.855Z",
+    "updated_at": "2022-03-05T14:53:57.950Z",
+    "drink": 1,
+    "owner": 5
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 5,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": null,
+    "drunk": false,
+    "created_at": "2022-03-03T17:27:51.202Z",
+    "updated_at": "2022-03-05T14:53:40.366Z",
+    "drink": 1,
+    "owner": 5
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 6,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": null,
+    "drunk": false,
+    "created_at": "2022-03-03T17:36:12.744Z",
+    "updated_at": "2022-03-05T14:53:34.662Z",
+    "drink": 1,
+    "owner": 5
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 7,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": null,
+    "drunk": false,
+    "created_at": "2022-03-03T17:51:18.478Z",
+    "updated_at": "2022-03-05T14:54:02.078Z",
+    "drink": 1,
+    "owner": 5
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 8,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.15",
+    "drunk": false,
+    "created_at": "2022-03-05T14:54:52.844Z",
+    "updated_at": "2022-03-05T14:56:18.215Z",
+    "drink": 1,
+    "owner": 8
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 9,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.20",
+    "drunk": false,
+    "created_at": "2022-03-05T14:56:02.288Z",
+    "updated_at": "2022-03-05T14:56:02.288Z",
+    "drink": 1,
+    "owner": 8
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 10,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.30",
+    "drunk": false,
+    "created_at": "2022-03-05T14:56:38.075Z",
+    "updated_at": "2022-03-05T14:56:38.075Z",
+    "drink": 1,
+    "owner": 8
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 11,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "4.95",
+    "drunk": false,
+    "created_at": "2022-03-05T14:56:42.882Z",
+    "updated_at": "2022-03-05T14:56:42.882Z",
+    "drink": 1,
+    "owner": 8
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 12,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.03",
+    "drunk": false,
+    "created_at": "2022-03-05T14:56:47.647Z",
+    "updated_at": "2022-03-05T14:56:47.647Z",
+    "drink": 1,
+    "owner": 8
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 13,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": null,
+    "drunk": false,
+    "created_at": "2022-03-05T14:56:53.278Z",
+    "updated_at": "2022-03-05T14:56:53.278Z",
+    "drink": 1,
+    "owner": 8
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 14,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "9.00",
+    "drunk": false,
+    "created_at": "2022-03-05T14:57:22.847Z",
+    "updated_at": "2022-03-05T14:57:22.847Z",
+    "drink": 1,
+    "owner": 7
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 15,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "8.50",
+    "drunk": false,
+    "created_at": "2022-03-05T14:57:27.109Z",
+    "updated_at": "2022-03-05T14:57:27.109Z",
+    "drink": 1,
+    "owner": 7
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 16,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "8.75",
+    "drunk": false,
+    "created_at": "2022-03-05T14:57:32.378Z",
+    "updated_at": "2022-03-05T14:57:32.378Z",
+    "drink": 1,
+    "owner": 7
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 17,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.00",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:13.160Z",
+    "updated_at": "2022-03-05T14:59:13.161Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 18,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.00",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:13.880Z",
+    "updated_at": "2022-03-05T14:59:13.880Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 19,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.00",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:14.596Z",
+    "updated_at": "2022-03-05T14:59:14.596Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 20,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.00",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:15.278Z",
+    "updated_at": "2022-03-05T14:59:15.278Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 21,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.01",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:17.540Z",
+    "updated_at": "2022-03-05T14:59:17.540Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 22,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.01",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:18.160Z",
+    "updated_at": "2022-03-05T14:59:18.160Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 23,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.02",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:19.954Z",
+    "updated_at": "2022-03-05T14:59:19.954Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 24,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.02",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:20.576Z",
+    "updated_at": "2022-03-05T14:59:20.576Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 25,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.03",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:22.310Z",
+    "updated_at": "2022-03-05T14:59:22.310Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 26,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.03",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:23.737Z",
+    "updated_at": "2022-03-05T14:59:23.737Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 27,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.04",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:25.484Z",
+    "updated_at": "2022-03-05T14:59:25.484Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 28,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "5.04",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:26.077Z",
+    "updated_at": "2022-03-05T14:59:26.077Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 29,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "4.99",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:31.261Z",
+    "updated_at": "2022-03-05T14:59:31.261Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 30,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "4.99",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:31.972Z",
+    "updated_at": "2022-03-05T14:59:31.972Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 31,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "4.98",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:36.634Z",
+    "updated_at": "2022-03-05T14:59:36.634Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 32,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "4.98",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:37.466Z",
+    "updated_at": "2022-03-05T14:59:37.466Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 33,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "4.97",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:39.985Z",
+    "updated_at": "2022-03-05T14:59:39.985Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 34,
+  "fields": {
+    "measure_volume": 284,
+    "measure_unit_name": "half pint",
+    "offer_to_sell": "4.97",
+    "drunk": false,
+    "created_at": "2022-03-05T14:59:40.601Z",
+    "updated_at": "2022-03-05T14:59:40.601Z",
+    "drink": 1,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 35,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.00",
+    "drunk": false,
+    "created_at": "2022-03-05T15:09:08.296Z",
+    "updated_at": "2022-03-05T15:09:08.296Z",
+    "drink": 2,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 36,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.00",
+    "drunk": false,
+    "created_at": "2022-03-05T15:09:09.079Z",
+    "updated_at": "2022-03-05T15:09:09.079Z",
+    "drink": 2,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 37,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.00",
+    "drunk": false,
+    "created_at": "2022-03-05T15:09:09.864Z",
+    "updated_at": "2022-03-05T15:09:09.864Z",
+    "drink": 2,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 38,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.01",
+    "drunk": false,
+    "created_at": "2022-03-05T15:09:12.295Z",
+    "updated_at": "2022-03-05T15:09:12.295Z",
+    "drink": 2,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 39,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.01",
+    "drunk": false,
+    "created_at": "2022-03-05T15:09:12.858Z",
+    "updated_at": "2022-03-05T15:09:12.858Z",
+    "drink": 2,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 40,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.02",
+    "drunk": false,
+    "created_at": "2022-03-05T15:09:16.923Z",
+    "updated_at": "2022-03-05T15:09:16.923Z",
+    "drink": 2,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 41,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.02",
+    "drunk": false,
+    "created_at": "2022-03-05T15:09:17.613Z",
+    "updated_at": "2022-03-05T15:09:17.613Z",
+    "drink": 2,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 42,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "6.99",
+    "drunk": false,
+    "created_at": "2022-03-05T15:09:21.990Z",
+    "updated_at": "2022-03-05T15:09:21.990Z",
+    "drink": 2,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 43,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "6.99",
+    "drunk": false,
+    "created_at": "2022-03-05T15:09:22.699Z",
+    "updated_at": "2022-03-05T15:09:22.699Z",
+    "drink": 2,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 44,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "6.99",
+    "drunk": false,
+    "created_at": "2022-03-05T15:09:24.076Z",
+    "updated_at": "2022-03-05T15:09:24.076Z",
+    "drink": 2,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 45,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "6.99",
+    "drunk": false,
+    "created_at": "2022-03-05T15:09:25.089Z",
+    "updated_at": "2022-03-05T15:09:25.089Z",
+    "drink": 2,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 46,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.10",
+    "drunk": false,
+    "created_at": "2022-03-05T15:09:58.372Z",
+    "updated_at": "2022-03-05T15:09:58.372Z",
+    "drink": 2,
+    "owner": 9
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 47,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.11",
+    "drunk": false,
+    "created_at": "2022-03-05T15:10:00.182Z",
+    "updated_at": "2022-03-05T15:10:00.182Z",
+    "drink": 2,
+    "owner": 9
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 48,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.12",
+    "drunk": false,
+    "created_at": "2022-03-05T15:10:02.305Z",
+    "updated_at": "2022-03-05T15:10:02.305Z",
+    "drink": 2,
+    "owner": 9
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 49,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.15",
+    "drunk": false,
+    "created_at": "2022-03-05T15:10:04.755Z",
+    "updated_at": "2022-03-05T15:10:04.755Z",
+    "drink": 2,
+    "owner": 9
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 50,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.20",
+    "drunk": false,
+    "created_at": "2022-03-05T15:10:06.752Z",
+    "updated_at": "2022-03-05T15:10:06.752Z",
+    "drink": 2,
+    "owner": 9
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 51,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.50",
+    "drunk": false,
+    "created_at": "2022-03-05T15:10:08.780Z",
+    "updated_at": "2022-03-05T15:10:08.780Z",
+    "drink": 2,
+    "owner": 9
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 52,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "6.90",
+    "drunk": false,
+    "created_at": "2022-03-05T15:10:42.706Z",
+    "updated_at": "2022-03-05T15:10:42.706Z",
+    "drink": 2,
+    "owner": 7
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 53,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "6.95",
+    "drunk": false,
+    "created_at": "2022-03-05T15:10:44.911Z",
+    "updated_at": "2022-03-05T15:10:44.911Z",
+    "drink": 2,
+    "owner": 7
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 54,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "8.00",
+    "drunk": false,
+    "created_at": "2022-03-05T15:10:54.622Z",
+    "updated_at": "2022-03-05T15:10:54.622Z",
+    "drink": 2,
+    "owner": 5
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 55,
+  "fields": {
+    "measure_volume": 175,
+    "measure_unit_name": "glass",
+    "offer_to_sell": "7.99",
+    "drunk": false,
+    "created_at": "2022-03-05T15:10:58.341Z",
+    "updated_at": "2022-03-05T15:10:58.341Z",
+    "drink": 2,
+    "owner": 5
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 56,
+  "fields": {
+    "measure_volume": 25,
+    "measure_unit_name": "shot",
+    "offer_to_sell": "4.95",
+    "drunk": false,
+    "created_at": "2022-03-05T15:11:28.496Z",
+    "updated_at": "2022-03-05T15:12:23.068Z",
+    "drink": 3,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 57,
+  "fields": {
+    "measure_volume": 25,
+    "measure_unit_name": "shot",
+    "offer_to_sell": "4.96",
+    "drunk": false,
+    "created_at": "2022-03-05T15:11:30.730Z",
+    "updated_at": "2022-03-05T15:12:17.570Z",
+    "drink": 3,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 58,
+  "fields": {
+    "measure_volume": 25,
+    "measure_unit_name": "shot",
+    "offer_to_sell": "4.97",
+    "drunk": false,
+    "created_at": "2022-03-05T15:11:32.802Z",
+    "updated_at": "2022-03-05T15:12:10.309Z",
+    "drink": 3,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 59,
+  "fields": {
+    "measure_volume": 25,
+    "measure_unit_name": "shot",
+    "offer_to_sell": "4.99",
+    "drunk": false,
+    "created_at": "2022-03-05T15:11:39.273Z",
+    "updated_at": "2022-03-05T15:12:04.808Z",
+    "drink": 3,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 60,
+  "fields": {
+    "measure_volume": 25,
+    "measure_unit_name": "shot",
+    "offer_to_sell": "5.00",
+    "drunk": false,
+    "created_at": "2022-03-05T15:11:42.332Z",
+    "updated_at": "2022-03-05T15:11:56.985Z",
+    "drink": 3,
+    "owner": 10
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 61,
+  "fields": {
+    "measure_volume": 25,
+    "measure_unit_name": "shot",
+    "offer_to_sell": "6.00",
+    "drunk": false,
+    "created_at": "2022-03-05T15:13:31.458Z",
+    "updated_at": "2022-03-05T15:13:31.458Z",
+    "drink": 3,
+    "owner": 6
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 62,
+  "fields": {
+    "measure_volume": 25,
+    "measure_unit_name": "shot",
+    "offer_to_sell": "6.00",
+    "drunk": false,
+    "created_at": "2022-03-05T15:13:32.812Z",
+    "updated_at": "2022-03-05T15:13:32.812Z",
+    "drink": 3,
+    "owner": 6
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 63,
+  "fields": {
+    "measure_volume": 25,
+    "measure_unit_name": "shot",
+    "offer_to_sell": "5.50",
+    "drunk": false,
+    "created_at": "2022-03-05T15:13:38.126Z",
+    "updated_at": "2022-03-05T15:13:38.126Z",
+    "drink": 3,
+    "owner": 6
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 64,
+  "fields": {
+    "measure_volume": 25,
+    "measure_unit_name": "shot",
+    "offer_to_sell": "5.75",
+    "drunk": false,
+    "created_at": "2022-03-05T15:13:40.956Z",
+    "updated_at": "2022-03-05T15:13:40.956Z",
+    "drink": 3,
+    "owner": 6
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 65,
+  "fields": {
+    "measure_volume": 25,
+    "measure_unit_name": "shot",
+    "offer_to_sell": "6.25",
+    "drunk": false,
+    "created_at": "2022-03-05T15:13:46.518Z",
+    "updated_at": "2022-03-05T15:13:46.518Z",
+    "drink": 3,
+    "owner": 6
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 66,
+  "fields": {
+    "measure_volume": 25,
+    "measure_unit_name": "shot",
+    "offer_to_sell": "6.50",
+    "drunk": false,
+    "created_at": "2022-03-05T15:13:49.704Z",
+    "updated_at": "2022-03-05T15:13:49.704Z",
+    "drink": 3,
+    "owner": 6
+  }
+},
+{
+  "model": "measures.measure",
+  "pk": 67,
+  "fields": {
+    "measure_volume": 25,
+    "measure_unit_name": "shot",
+    "offer_to_sell": "5.00",
+    "drunk": false,
+    "created_at": "2022-03-05T15:14:20.313Z",
+    "updated_at": "2022-03-05T15:14:20.313Z",
+    "drink": 3,
+    "owner": 7
+  }
+}
+]

@@ -1,0 +1,140 @@
+[
+{
+  "model": "jwt_auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$4j4sdvQK3j1ijtIxkF3cng$P6TKKIK096LYAFQCuAFgymFv2XEPEjBevm+JbUApiNE=",
+    "last_login": "2022-03-02T17:28:24Z",
+    "is_superuser": true,
+    "username": "Steve",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2022-03-02T17:27:51Z",
+    "email": "steve@email.com",
+    "profile_image": "steve-image.jpg",
+    "loaded_credit": null,
+    "cost_as_buyer": null,
+    "income_as_seller": null,
+    "account_balance": "100.00",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "jwt_auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$6zUjNSjgexytMlgrWqlFrE$LSdaByXJT6UT23pAZ/FYIKahHIhLOjC+BG2pyPJ5WDI=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Sam",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-03-02T17:30:40Z",
+    "email": "sam@email.com",
+    "profile_image": "sam-image.jpg",
+    "loaded_credit": "100.00",
+    "cost_as_buyer": null,
+    "income_as_seller": null,
+    "account_balance": "100.00",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "jwt_auth.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$HgoN5kXe2xnL6hzgEwi3j1$4O0V8JrqnrEPlMwpysmab8WPNDiaI0PKmu3Owegi5f4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Iury",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-03-04T18:38:00.358Z",
+    "email": "iury@email.com",
+    "profile_image": "iury-image.jpg",
+    "loaded_credit": null,
+    "cost_as_buyer": null,
+    "income_as_seller": null,
+    "account_balance": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "jwt_auth.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$gUurOX8P5mDzzPtrPOXnPX$qSyYE4SANdtNdJiUdQAic9dhetwdshS3HPuKvH6x+1c=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Christian",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-03-05T14:46:27.762Z",
+    "email": "christian@email.com",
+    "profile_image": "christian-image.jpg",
+    "loaded_credit": null,
+    "cost_as_buyer": null,
+    "income_as_seller": null,
+    "account_balance": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "jwt_auth.user",
+  "pk": 9,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$FdxVSIjDfIYY5z7hPHTLDf$WJ8LpBiabocsoTTkMEK3urkUBbnx2/AuupzXw+vASXI=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Chloe",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-03-05T14:47:12.620Z",
+    "email": "chloe@email.com",
+    "profile_image": "chloe-image.jpg",
+    "loaded_credit": null,
+    "cost_as_buyer": null,
+    "income_as_seller": null,
+    "account_balance": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "jwt_auth.user",
+  "pk": 10,
+  "fields": {
+    "password": "pbkdf2_sha256$320000$Eq6Elgg7W7mhbqunEzEBXH$I1Hc0z88/0xknZcs7fULuqgX+V688FADej5hlqKrNtU=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Bart",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2022-03-05T14:48:15.665Z",
+    "email": "bartender@derivative.com",
+    "profile_image": "bart-image.jpg",
+    "loaded_credit": null,
+    "cost_as_buyer": null,
+    "income_as_seller": null,
+    "account_balance": null,
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

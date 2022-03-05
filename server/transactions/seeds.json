@@ -1,0 +1,101 @@
+[
+{
+  "model": "transactions.transaction",
+  "pk": 1,
+  "fields": {
+    "price": "5.50",
+    "created_at": "2022-03-03T21:40:54.343Z",
+    "measure": 6,
+    "buyer": 5,
+    "seller": 10
+  }
+},
+{
+  "model": "transactions.transaction",
+  "pk": 2,
+  "fields": {
+    "price": "5.21",
+    "created_at": "2022-03-03T21:45:07.810Z",
+    "measure": 1,
+    "buyer": 8,
+    "seller": 10
+  }
+},
+{
+  "model": "transactions.transaction",
+  "pk": 5,
+  "fields": {
+    "price": "5.20",
+    "created_at": "2022-03-04T17:06:36.794Z",
+    "measure": 5,
+    "buyer": 5,
+    "seller": 10
+  }
+},
+{
+  "model": "transactions.transaction",
+  "pk": 7,
+  "fields": {
+    "price": "5.25",
+    "created_at": "2022-03-04T17:07:11.117Z",
+    "measure": 7,
+    "buyer": 5,
+    "seller": 8
+  }
+},
+{
+  "model": "transactions.transaction",
+  "pk": 8,
+  "fields": {
+    "price": "5.25",
+    "created_at": "2022-03-05T15:33:19.622Z",
+    "measure": 2,
+    "buyer": 8,
+    "seller": 10
+  }
+},
+{
+  "model": "transactions.transaction",
+  "pk": 9,
+  "fields": {
+    "price": "5.26",
+    "created_at": "2022-03-05T15:33:22.533Z",
+    "measure": 12,
+    "buyer": 8,
+    "seller": 10
+  }
+},
+{
+  "model": "transactions.transaction",
+  "pk": 10,
+  "fields": {
+    "price": "5.20",
+    "created_at": "2022-03-05T15:33:25.878Z",
+    "measure": 13,
+    "buyer": 8,
+    "seller": 10
+  }
+},
+{
+  "model": "transactions.transaction",
+  "pk": 11,
+  "fields": {
+    "price": "5.01",
+    "created_at": "2022-03-05T15:33:28.373Z",
+    "measure": 8,
+    "buyer": 8,
+    "seller": 10
+  }
+},
+{
+  "model": "transactions.transaction",
+  "pk": 12,
+  "fields": {
+    "price": "5.30",
+    "created_at": "2022-03-05T15:42:31.990Z",
+    "measure": 2,
+    "buyer": 5,
+    "seller": 8
+  }
+}
+]

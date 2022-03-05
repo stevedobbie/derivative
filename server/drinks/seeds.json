@@ -17,7 +17,7 @@
   "model": "drinks.drink",
   "pk": 2,
   "fields": {
-    "name": "Sparkle Bunny Red Wine",
+    "name": "Sparkle Bunny Sparkling Red",
     "total_volume": 17500,
     "abv": "12.5",
     "total_measures": 100,
@@ -31,11 +31,11 @@
   "model": "drinks.drink",
   "pk": 3,
   "fields": {
-    "name": "Frangelico",
-    "total_volume": 700,
+    "name": "Fungelico",
+    "total_volume": 750,
     "abv": "20.0",
-    "total_measures": 28,
-    "measures_remaining": 28,
+    "total_measures": 30,
+    "measures_remaining": 30,
     "created_at": "2022-03-03T12:06:23.490Z",
     "expiry_date": "2022-06-30T00:00:00Z",
     "image": "https://i.imgur.com/lUWy6gD.png"

@@ -1,0 +1,387 @@
+[
+{
+  "model": "bids.bid",
+  "pk": 2,
+  "fields": {
+    "offer_to_buy": "5.10",
+    "created_at": "2022-03-04T11:15:32.637Z",
+    "updated_at": "2022-03-05T15:16:18.187Z",
+    "owner": 8,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 5,
+  "fields": {
+    "offer_to_buy": "5.10",
+    "created_at": "2022-03-04T15:48:46.717Z",
+    "updated_at": "2022-03-05T15:16:11.421Z",
+    "owner": 8,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 6,
+  "fields": {
+    "offer_to_buy": "5.14",
+    "created_at": "2022-03-04T16:04:55.777Z",
+    "updated_at": "2022-03-05T15:15:54.443Z",
+    "owner": 8,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 7,
+  "fields": {
+    "offer_to_buy": "5.20",
+    "created_at": "2022-03-04T16:35:13.571Z",
+    "updated_at": "2022-03-04T16:35:13.571Z",
+    "owner": 5,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 8,
+  "fields": {
+    "offer_to_buy": "7.52",
+    "created_at": "2022-03-04T17:23:52.750Z",
+    "updated_at": "2022-03-05T15:24:15.861Z",
+    "owner": 9,
+    "drink": 2
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 10,
+  "fields": {
+    "offer_to_buy": "7.50",
+    "created_at": "2022-03-05T14:33:03.182Z",
+    "updated_at": "2022-03-05T15:24:07.973Z",
+    "owner": 9,
+    "drink": 2
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 11,
+  "fields": {
+    "offer_to_buy": "5.25",
+    "created_at": "2022-03-05T15:20:34.037Z",
+    "updated_at": "2022-03-05T15:21:43.854Z",
+    "owner": 8,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 12,
+  "fields": {
+    "offer_to_buy": "5.30",
+    "created_at": "2022-03-05T15:21:19.413Z",
+    "updated_at": "2022-03-05T15:21:53.207Z",
+    "owner": 8,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 13,
+  "fields": {
+    "offer_to_buy": "5.35",
+    "created_at": "2022-03-05T15:21:29.061Z",
+    "updated_at": "2022-03-05T15:21:49.110Z",
+    "owner": 8,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 14,
+  "fields": {
+    "offer_to_buy": "5.28",
+    "created_at": "2022-03-05T15:21:31.584Z",
+    "updated_at": "2022-03-05T15:22:03.149Z",
+    "owner": 8,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 15,
+  "fields": {
+    "offer_to_buy": "5.27",
+    "created_at": "2022-03-05T15:21:34.167Z",
+    "updated_at": "2022-03-05T15:21:58.369Z",
+    "owner": 8,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 16,
+  "fields": {
+    "offer_to_buy": "5.24",
+    "created_at": "2022-03-05T15:21:37.395Z",
+    "updated_at": "2022-03-05T15:22:07.621Z",
+    "owner": 8,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 17,
+  "fields": {
+    "offer_to_buy": "5.40",
+    "created_at": "2022-03-05T15:22:31.346Z",
+    "updated_at": "2022-03-05T15:22:36.733Z",
+    "owner": 8,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 18,
+  "fields": {
+    "offer_to_buy": "5.20",
+    "created_at": "2022-03-05T15:23:04.712Z",
+    "updated_at": "2022-03-05T15:23:04.712Z",
+    "owner": 7,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 19,
+  "fields": {
+    "offer_to_buy": "5.21",
+    "created_at": "2022-03-05T15:23:11.650Z",
+    "updated_at": "2022-03-05T15:23:11.650Z",
+    "owner": 7,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 20,
+  "fields": {
+    "offer_to_buy": "5.25",
+    "created_at": "2022-03-05T15:23:22.474Z",
+    "updated_at": "2022-03-05T15:23:22.474Z",
+    "owner": 5,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 21,
+  "fields": {
+    "offer_to_buy": "5.31",
+    "created_at": "2022-03-05T15:23:29.142Z",
+    "updated_at": "2022-03-05T15:23:29.143Z",
+    "owner": 5,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 22,
+  "fields": {
+    "offer_to_buy": "5.33",
+    "created_at": "2022-03-05T15:23:35.190Z",
+    "updated_at": "2022-03-05T15:23:35.190Z",
+    "owner": 5,
+    "drink": 1
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 23,
+  "fields": {
+    "offer_to_buy": "7.51",
+    "created_at": "2022-03-05T15:24:43.687Z",
+    "updated_at": "2022-03-05T15:24:43.687Z",
+    "owner": 9,
+    "drink": 2
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 24,
+  "fields": {
+    "offer_to_buy": "7.45",
+    "created_at": "2022-03-05T15:25:04.990Z",
+    "updated_at": "2022-03-05T15:25:22.237Z",
+    "owner": 9,
+    "drink": 2
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 25,
+  "fields": {
+    "offer_to_buy": "7.48",
+    "created_at": "2022-03-05T15:25:09.464Z",
+    "updated_at": "2022-03-05T15:25:26.457Z",
+    "owner": 9,
+    "drink": 2
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 26,
+  "fields": {
+    "offer_to_buy": "7.47",
+    "created_at": "2022-03-05T15:25:11.342Z",
+    "updated_at": "2022-03-05T15:25:29.479Z",
+    "owner": 9,
+    "drink": 2
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 27,
+  "fields": {
+    "offer_to_buy": "7.51",
+    "created_at": "2022-03-05T15:25:14.089Z",
+    "updated_at": "2022-03-05T15:25:32.714Z",
+    "owner": 9,
+    "drink": 2
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 28,
+  "fields": {
+    "offer_to_buy": "7.25",
+    "created_at": "2022-03-05T15:25:51.235Z",
+    "updated_at": "2022-03-05T15:26:22.937Z",
+    "owner": 7,
+    "drink": 2
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 29,
+  "fields": {
+    "offer_to_buy": "7.30",
+    "created_at": "2022-03-05T15:25:58.046Z",
+    "updated_at": "2022-03-05T15:26:19.325Z",
+    "owner": 7,
+    "drink": 2
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 30,
+  "fields": {
+    "offer_to_buy": "7.20",
+    "created_at": "2022-03-05T15:26:08.088Z",
+    "updated_at": "2022-03-05T15:26:15.156Z",
+    "owner": 7,
+    "drink": 2
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 31,
+  "fields": {
+    "offer_to_buy": "7.40",
+    "created_at": "2022-03-05T15:27:06.672Z",
+    "updated_at": "2022-03-05T15:27:06.672Z",
+    "owner": 5,
+    "drink": 2
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 32,
+  "fields": {
+    "offer_to_buy": "5.10",
+    "created_at": "2022-03-05T15:27:23.617Z",
+    "updated_at": "2022-03-05T15:27:23.617Z",
+    "owner": 6,
+    "drink": 3
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 33,
+  "fields": {
+    "offer_to_buy": "5.15",
+    "created_at": "2022-03-05T15:27:35.506Z",
+    "updated_at": "2022-03-05T15:27:35.506Z",
+    "owner": 6,
+    "drink": 3
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 34,
+  "fields": {
+    "offer_to_buy": "5.20",
+    "created_at": "2022-03-05T15:27:37.662Z",
+    "updated_at": "2022-03-05T15:27:37.662Z",
+    "owner": 6,
+    "drink": 3
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 35,
+  "fields": {
+    "offer_to_buy": "5.05",
+    "created_at": "2022-03-05T15:27:39.984Z",
+    "updated_at": "2022-03-05T15:27:39.984Z",
+    "owner": 6,
+    "drink": 3
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 36,
+  "fields": {
+    "offer_to_buy": "5.15",
+    "created_at": "2022-03-05T15:28:22.411Z",
+    "updated_at": "2022-03-05T15:28:22.411Z",
+    "owner": 6,
+    "drink": 3
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 37,
+  "fields": {
+    "offer_to_buy": "5.20",
+    "created_at": "2022-03-05T15:28:24.735Z",
+    "updated_at": "2022-03-05T15:28:24.735Z",
+    "owner": 6,
+    "drink": 3
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 38,
+  "fields": {
+    "offer_to_buy": "4.80",
+    "created_at": "2022-03-05T15:28:59.671Z",
+    "updated_at": "2022-03-05T15:29:19.068Z",
+    "owner": 7,
+    "drink": 3
+  }
+},
+{
+  "model": "bids.bid",
+  "pk": 39,
+  "fields": {
+    "offer_to_buy": "4.75",
+    "created_at": "2022-03-05T15:29:03.413Z",
+    "updated_at": "2022-03-05T15:29:14.458Z",
+    "owner": 7,
+    "drink": 3
+  }
+}
+]
