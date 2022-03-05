@@ -1,3 +1,4 @@
+from functools import partial
 from rest_framework.views import APIView
 from rest_framework.response import Response # Response
 from rest_framework import status # Response
@@ -58,7 +59,7 @@ class MeasureDetailView(APIView):
 
     def put(self, request, pk):
         measure_to_update = self.get_measure(pk=pk)
-        serialized_measure = MeasureSerializer(measure_to_update, data=request.data)
+        serialized_measure = MeasureSerializer(measure_to_update, data=request.data, partial=True)
         try:
             serialized_measure.is_valid()
             serialized_measure.save()

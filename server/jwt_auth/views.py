@@ -1,3 +1,4 @@
+from functools import partial
 from urllib import request
 from django.conf import settings
 from rest_framework.views import APIView # Base class to extend from
@@ -57,6 +58,7 @@ class LoginView(APIView):
 class ProfileView(APIView):
     permissions_classes = (IsAuthenticated, )
 
+    # get profile for logged in user
     def get(self, request):
         try:
             user = User.objects.get(pk=request.user.id)
@@ -65,9 +67,44 @@ class ProfileView(APIView):
         except User.DoesNotExist:
             raise NotFound(detail="User not found") 
 
-    # def put(self, request, pk):
-    #     user_to_update = User.objects.get(pk=pk)
-    #     serialized_user_to_update = UserSerializer(user_to_update, data=request.data)
-    #     try:
-    #         serialized_user_to_update.is_valid()
+class ProfileDetailView(APIView):
+    permissions_classes = (IsAuthenticated, )
+
+    def get_user(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+                raise NotFound(detail="User not found")
+    
+    # get profile for any user based on passed in pk
+    def get(self, _request, pk):
+        user = self.get_user(pk=pk)
+        serialized_user = UserSerializer(user)
+        return Response(serialized_user.data, status=status.HTTP_200_OK)
+
+    # update profile for any user based on passed in pk
+    # users can change account balance etc of other users (needed for trades) but not personal information
+    def put(self, request, pk):
+        user_to_update = self.get_user(pk=pk)
+        if (user_to_update != request.user):
+            fields_to_exclude = {'email', 'username', 'password', 'password_confirmation', 'profile_image', 'loaded_credit'}
+            print(request.data)
+            fields_to_update = {key: request.data[key] for key in request.data if key not in fields_to_exclude}
+            print(fields_to_update)
+            serialized_user_to_update = UserSerializer(user_to_update, data=fields_to_update, partial=True)
+        if (user_to_update == request.user):
+            serialized_user_to_update = UserSerializer(user_to_update, data=request.data, partial=True)
+        try:
+            serialized_user_to_update.is_valid()
+            serialized_user_to_update.save(update_fields=['account_balance', 'income_as_seller', 'cost_as_buyer', ])
+            return Response(serialized_user_to_update.data, status=status.HTTP_200_OK)
+        # AssertionError
+        except AssertionError as error:
+            print('AssertionError ---->', str(error))
+            return Response({ "detail": str(error) }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        # catch all
+        except:
+            print('CatchAll ---->')
+            return Response({ "detail": "Unprocessable Entity" }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
 

@@ -1,3 +1,4 @@
+from functools import partial
 from rest_framework.views import APIView # Views
 from rest_framework.response import Response # Response
 from rest_framework import status # Response
@@ -59,7 +60,7 @@ class BidDetailView(APIView):
         bid_to_update = Bid.objects.get(pk=pk)
         if(bid_to_update.owner != request.user):
             raise PermissionDenied(detail="Unauthorised")
-        serialized_bid_to_update = BidSerializer(bid_to_update, data=request.data)
+        serialized_bid_to_update = BidSerializer(bid_to_update, data=request.data, partial=True)
         try: 
             serialized_bid_to_update.is_valid()
             serialized_bid_to_update.save()
