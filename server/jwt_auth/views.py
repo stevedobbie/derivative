@@ -37,11 +37,11 @@ class LoginView(APIView):
 
         # validate user
         except User.DoesNotExist:
-            return PermissionDenied(detail="Unauthorised")
+            raise PermissionDenied(detail="Unauthorised")
         
         # validate password
         if not user_to_login.check_password(request.data.get('password')):
-            return PermissionDenied(detail="Unauthorised")
+            raise PermissionDenied(detail="Unauthorised")
 
         # create token for validated user
         dt = datetime.now() + timedelta(days=7)

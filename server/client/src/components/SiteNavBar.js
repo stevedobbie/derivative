@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { Box, Text, Stack, Flex, Button, IconButton, HStack } from '@chakra-ui/react'
+import { Box, Text, Flex, Button, IconButton } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import { userAuthenticated } from './utils/userAuthenticated'
 
