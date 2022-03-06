@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { Box, Text, Stack, Flex, Button, IconButton } from '@chakra-ui/react'
+import { Box, Text, Stack, Flex, Button, IconButton, HStack } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
-import { AiOutlineCloseSquare, AiOutlineMenu } from 'react-icons/ai'
-
-
+import { userAuthenticated } from './utils/userAuthenticated'
 
 const SiteNavBar = () => {
   
@@ -21,25 +19,27 @@ const SiteNavBar = () => {
 
   return (
     <>
-      <Flex>
-        <Flex position="fixed" top="1rem" left="1rem" align="center">
-          <Text>
-            Logo
-          </Text>
+      
+      <Flex id='nav-container' justify='space-between' align="center">
+        <Flex className='nav-logo' my={5}> 
+            <Text ml={5}>
+              Logo
+            </Text>
         </Flex>
-        <Flex position="fixed" top="1rem" right="1rem" align="center">
-          {/* Desktop */}
           
+        <Flex align="center">
+          {/* Desktop */}
           <Flex
             display={['none', 'none', 'flex','flex']}
+            className='nav-links'
           >
             <Link to='profile'>
-              <Button as="a" variant="ghost" aria-label="Home" my={5} w="100%">
+              <Button className='nav-button' variant="ghost" aria-label="Home" my={5} w="100%">
                 My profile
               </Button>
             </Link>
-            <Link to='logout'>
-              <Button as="a" variant="ghost" aria-label="Home" my={5} w="100%">
+            <Link id='nav-logout' to='logout' mr={10}>
+              <Button className='nav-button' variant="ghost" aria-label="Home" my={5} w="100%">
                 Logout
               </Button>
             </Link>
@@ -55,6 +55,7 @@ const SiteNavBar = () => {
             display={['flex', 'flex', 'none', 'none']}
           />
         </Flex>
+        
           {/* Mobile Content */}
         <Flex
           w='100vw'
@@ -81,12 +82,12 @@ const SiteNavBar = () => {
 
           <Flex flexDir="column" align="center">
             <Link to='profile'>
-              <Button as="a" variant="ghost" aria-label="Home" my={5} w="100%">
+              <Button variant="ghost" aria-label="Home" mt={5} w="100%">
                 My profile
               </Button>
             </Link>
             <Link to='logout'>
-              <Button as="a" variant="ghost" aria-label="Home" my={5} w="100%">
+              <Button variant="ghost" aria-label="Home" mt={5} w="100%">
                 Logout
               </Button>
             </Link>
