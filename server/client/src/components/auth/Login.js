@@ -41,7 +41,7 @@ const Login = () => {
 
   return (
     <>
-      <Container mt={10}>
+      <Container mt={10} className='form-container' p={50}>
         <FormControl isRequired>
           <FormLabel htmlFor='email'>Email address</FormLabel>
           <Input 

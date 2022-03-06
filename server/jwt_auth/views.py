@@ -74,7 +74,7 @@ class ProfileDetailView(APIView):
         try:
             return User.objects.get(pk=pk)
         except User.DoesNotExist:
-                raise NotFound(detail="User not found")
+            raise NotFound(detail="User not found")
     
     # get profile for any user based on passed in pk
     def get(self, _request, pk):

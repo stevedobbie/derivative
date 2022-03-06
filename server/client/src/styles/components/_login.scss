@@ -2,3 +2,28 @@
   background-color: $button;
   width: 30%
 }
+
+.form-container{
+  border: 5px solid white; // pink.500
+  border-radius: 30px;
+  // animation: neon 2s ease-in-out infinite alternate;
+  // box-shadow: 0px 0px 15px 5px rgba(213, 63, 140, .75);
+  box-shadow: 0 0 .2rem #fff,
+              0 0 .2rem #fff,
+              0 0 1.5rem #bc13fe,
+              0 0 0.8rem #bc13fe,
+              0 0 2.8rem #bc13fe,
+              inset 0 0 1.3rem #bc13fe;
+}
+
+@keyframes neon {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(255,0,0, 0.4);
+  }
+  50% {
+      -webkit-box-shadow: 0 0 0 10px rgba(255,0,0, 0.2);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(255,0,0, 0);
+  }
+}
