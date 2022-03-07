@@ -6,20 +6,11 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import { userAuthenticated } from './utils/userAuthenticated'
 
 const SiteNavBar = () => {
-  
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await axios.get('/api/drinks/') // * <-- replace with your endpoint
-      console.log(data)
-    }
-    getData()
-  }, [])
 
   const [ display, setDisplay ] = useState('none')
 
   return (
     <>
-      
       <Flex id='nav-container' justify='space-between' align="center">
         <Flex className='nav-logo' my={5}> 
             <Text ml={5}>

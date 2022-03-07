@@ -4,6 +4,7 @@ import SiteNavBar from './components/SiteNavBar'
 import { ChakraProvider } from '@chakra-ui/react'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
+import Home from './components/Home'
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
         <BrowserRouter>
           <SiteNavBar />
           <Routes>
+          <Route path='/' element={<Home />} />
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
             {/* To be added */}

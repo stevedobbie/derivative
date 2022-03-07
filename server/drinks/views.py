@@ -18,7 +18,7 @@ class DrinkListView(APIView):
 
     def get(self, _request):
         drinks = Drink.objects.all()
-        serialized_drinks = DrinkSerializer(drinks, many=True)
+        serialized_drinks = PopulatedDrinkSerializer(drinks, many=True)
         return Response(serialized_drinks.data, status=status.HTTP_200_OK)
 
 class DrinkDetailView(APIView):
