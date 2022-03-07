@@ -5,7 +5,8 @@ from django.db import models
 class Measure(models.Model):
     measure_volume = models.PositiveIntegerField(default=None)
     measure_unit_name = models.CharField(max_length=50, default=None)
-    offer_to_sell = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
+    offer_to_sell = models.DecimalField(max_digits=4, decimal_places=2, default=99.99)
+    number_units = models.PositiveIntegerField(default=1)
     drunk = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

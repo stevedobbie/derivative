@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 class Bid(models.Model):
     offer_to_buy = models.DecimalField(max_digits=4, decimal_places=2, default=None)
+    number_units = models.PositiveIntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(
