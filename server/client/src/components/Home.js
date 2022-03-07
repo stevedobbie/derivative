@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Container, Center, Flex } from '@chakra-ui/react'
+import { 
+  Center, 
+  Flex, 
+  Popover, 
+  PopoverArrow, 
+  PopoverContent, 
+  PopoverHeader, 
+  PopoverTrigger, 
+  Portal, 
+  PopoverCloseButton, 
+  PopoverBody,
+  Button,
+  PopoverFooter,
+  Text
+} from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
 
   const [ drinks, setDrinks ] = useState([])
-  const [ maxBids, setMaxBids ] = useState([])
-  const [ minOffers, setMinOffers ] = useState([])
+  const [ orderedBids, setOrderedBids ] = useState([])
+  const [ orderedOffers, setOrderedOffers ] = useState([])
   
   // Get drink, measure and bid data
   useEffect(() => {
@@ -33,18 +48,6 @@ const Home = () => {
     },[])
   } 
 
-  // need to add units into the schema
-
-  // // test aggregate function
-  // let array = [
-  //   { drink: 1, offer_to_buy: 15 },
-  //   { drink: 2, offer_to_buy: 30 },
-  //   { drink: 2, offer_to_buy: 20 },
-  //   { drink: 1, offer_to_buy: 15 },
-  //   { drink: 1, offer_to_buy: 5 }]
-  
-  // console.log(aggregateBids(array, ["drink", "offer_to_buy"]))
-
   // Filter and sort to find max bid and offer for each drink
   useEffect(() => {
     if(drinks.length) {
@@ -59,7 +62,7 @@ const Home = () => {
         const { measures } = drink
         return measures
       })
-      
+    
       // aggregate duplicate bids
       const aggregateBidArray = []
       const aggregateOfferArray = []
@@ -67,23 +70,27 @@ const Home = () => {
         aggregateBidArray.push(aggregateBids(bidArray[i], ["drink", "offer_to_buy"]))
         aggregateOfferArray.push(aggregateBids(offerArray[i], ["drink", "offer_to_sell"]))
       }
-      console.log(aggregateOfferArray)
 
-      // iterate through the bid array to find the highest priced bid and set that in state
-      const maxBidArray = aggregateBidArray.map((drink) => {
-        return drink.reduce((acc, bid) => acc.offer_to_buy > bid.offer_to_buy ? acc : bid)
+      // reorder the bid array based on highest priced bid 
+      const orderedBidArray = aggregateBidArray.map(drink => {
+        return drink.sort(({offer_to_buy:a}, {offer_to_buy:b}) => b-a)
       })
-      setMaxBids(maxBidArray)
-      console.log(maxBidArray)
-      
-      // iterate through the offer array to find the lowest priced offer to sell and set that in state
-      const minOfferArray = aggregateOfferArray.map((drink) => {
-        return drink.reduce((acc, offer) => acc.offer_to_sell < offer.offer_to_sell ? acc : offer)
+      setOrderedBids(orderedBidArray)
+      // reorder the offer array based on lowest priced offer 
+      const orderedOfferArray = aggregateOfferArray.map(drink => {
+        return drink.sort(({offer_to_sell:a}, {offer_to_sell:b}) => a-b)
       })
-      setMinOffers(minOfferArray)
-      console.log(minOfferArray)
-      
+      setOrderedOffers(orderedOfferArray)
 
+      // add max bids and min offer to drink object arrays so this can be rendered on page
+
+      const maxBid = {
+        
+      }
+
+      const newObj = {...drinks[0], ...{'maxBid': orderedBidArray[0][0]}}
+      Object.assign(drinks, {maxBid: orderedBidArray[0][0]})
+      console.log('newObjArray', newObj)
     }
   }, [drinks])
 
@@ -108,8 +115,50 @@ const Home = () => {
       <div id='hero-bar-container'>
         <div id='hero-bar'></div>
       </div>
-      <div id='hero-bar-top'></div>
-      
+      <div id='hero-bar-top'>
+        <Center>
+          <Flex className='drink-container'>
+            
+            {drinks && orderedBids &&
+              drinks.map(drink => {
+                const { id, measures, name, abv, image, measures_sold, expiry_date } = drink
+                  return (
+                    <Popover key={id}>
+                      <PopoverTrigger
+                        className='main-drinks'
+                        to={`/drinks/${id}`}
+                      >
+                        <div className='drink-img-container'>
+                          <img id={`img-${id}`} className='drink-img' src={image}/>
+                        </div>
+                      </PopoverTrigger>
+                      <Portal>
+                        <PopoverContent maxW="250px">
+                          <PopoverArrow />
+                          <PopoverHeader>{name}</PopoverHeader>
+                          <PopoverCloseButton />
+                          <PopoverBody>
+                            <Center>
+                              <Text width='5rem' textAlign='center'>Sell</Text>
+                              <Text width='5rem' textAlign='center'>Buy</Text>
+                            </Center>
+                            <Center>
+                              <Button colorScheme='pink' width='5rem'>Bidprice</Button>
+                              <Button colorScheme='blue' width='5rem'>Offerprice</Button>
+                            </Center>
+                          </PopoverBody>
+                          <PopoverFooter>This is the footer</PopoverFooter>
+                        </PopoverContent>
+                      </Portal>
+                    </Popover>
+                  )
+                })
+              }
+            
+            
+          </Flex>
+        </Center>
+      </div>
     </div>
   )
 

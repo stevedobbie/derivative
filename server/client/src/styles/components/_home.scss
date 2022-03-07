@@ -28,7 +28,7 @@
 
 #hero-bar{
   background-image: url('https://i.imgur.com/5Qs0Ok1.png');
-  height: 400px;
+  height: 350px;
   width: 4800px;
   animation: slide 120s linear infinite;
 }
@@ -40,7 +40,6 @@
 #home-container{
   background-image: url('https://i.imgur.com/pO1FMqh.jpg');
   height: 100vh;
-  position: relative;
 }
 
 #hero-bar-top{
@@ -48,6 +47,36 @@
   background-repeat: no-repeat;
   height: 137px;
   background-size: cover;
+  position: relative;
+}
+
+
+.drink-container{
+  position: absolute;
+  bottom: 5vh;
+  
+}
+
+.drink-img{
+  height: 50vh;
+  width: 50vw;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+#img-1{
+  transform: scale(0.7) translate(0, 9vh);
+  border: 2px solid red;
+}
+
+#img-2{
+  border: 2px solid red;
+}
+
+
+#img-3{
+  transform: translate(0, 25px);
+  border: 2px solid red;
 }
 
 @keyframes slide {
@@ -58,3 +87,4 @@
     transform: translate3d(-1600px,0,0);
   }
 }
+
