@@ -1,13 +1,13 @@
-.submit-button{
-  background-color: $button;
-  width: 30%
+.form-background{
+  background-image: url('https://i.imgur.com/pO1FMqh.jpg');
+  height: 100vh;
 }
 
 .form-container{
   border: 5px solid white; // pink.500
+  background-color: white;
   border-radius: 30px;
-  // animation: neon 2s ease-in-out infinite alternate;
-  // box-shadow: 0px 0px 15px 5px rgba(213, 63, 140, .75);
+  animation: neon 2s ease-in-out infinite alternate;
   box-shadow: 0 0 .2rem #fff,
               0 0 .2rem #fff,
               0 0 1.5rem #bc13fe,
@@ -17,13 +17,25 @@
 }
 
 @keyframes neon {
+  // 0% {
+  //   box-shadow: 
+  //   0 0 .2rem #fff,
+  //   0 0 .2rem #fff,
+  // }
   0% {
-    -webkit-box-shadow: 0 0 0 0 rgba(255,0,0, 0.4);
-  }
-  50% {
-      -webkit-box-shadow: 0 0 0 10px rgba(255,0,0, 0.2);
+      box-shadow:  
+      0 0 .2rem #fff,
+      0 0 .2rem #fff,
+      0 0 1.5rem #bc13fe,
+      0 0 0.8rem #bc13fe,
+      inset 0 0 1.3rem #bc13fe;
   }
   100% {
-      -webkit-box-shadow: 0 0 0 0 rgba(255,0,0, 0);
+      box-shadow: 
+      0 0 .2rem #fff,
+      0 0 1.5rem #bc13fe,
+      0 0 0.8rem #bc13fe,
+      0 0 1.8rem #bc13fe,
+      inset 0 0 1.8rem #bc13fe;
   }
 }

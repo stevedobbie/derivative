@@ -19,22 +19,12 @@ const Register = () => {
     username: '',
     email: '',
     password: '',
-    password_confirmation: '',
-    responseError: ''
+    password_confirmation: ''
   })
 
   const handleChange = (e) => {
-    console.log(e.target.value === '')
     setFormData({ ...formData, [e.target.name]: e.target.value })
-    if (e.target.value === '') {
-      setError({ ...error, [e.target.name]: `${e.target.name} is required`})
-    }
-    else if (error.responseError !== '' ) {
-      setError({ ...error, responseError: '' })
-    }
-    else {
-      setError({ ...error, [e.target.name]: '' })
-    }
+    setError({ ...error, [e.target.name]: '' })
   }
 
   const handleSubmit = async (e) => {
@@ -45,124 +35,116 @@ const Register = () => {
       console.log(data)
       navigate('/login')
     } catch (errorMsg) {
-      console.log(errorMsg)
-      console.log(errorMsg.response.data)
-      setError({ ...error, responseError: errorMsg.response.data})
+      setError(errorMsg.response.data.detail)
     }
 
   }
 
   return (
     <>
-      <Container mt={10} className='form-container' p={50}>
-        
-        <FormControl isRequired isInvalid={error.username}>
-          <FormLabel htmlFor='username'>Username</FormLabel>
-          <Input 
-            className='form-field' 
-            type='username' 
-            name='username'
-            placeholder='username'
-            defaultValue={formData.username}
-            onChange={handleChange}
-          />
-          {error.username !== '' ?
-            <FormErrorMessage className='form-error'>
-            {error.username} 
-            </FormErrorMessage>
-            :
-            <FormHelperText className='form-helper' color='white'>
-              Enter your username
-            </FormHelperText>
-          } 
-        </FormControl>
-        
-        <FormControl isRequired mt={2} isInvalid={error.email}>
-          <FormLabel htmlFor='email'>Email address</FormLabel>
-          <Input 
-            className='form-field' 
-            type='email' 
-            name='email'
-            placeholder='name@email.com'
-            defaultValue={formData.email}
-            onChange={handleChange}
-          />
-          {error.email !== '' ?
-            <FormErrorMessage className='form-error'>
-            {error.email}
-            </FormErrorMessage>
-            :
-            <FormHelperText className='form-helper' color='white'>
-              Enter your email address
-            </FormHelperText>
-          } 
-        </FormControl>
-        
-        <FormControl isRequired mt={2} isInvalid={error.password}>
-          <FormLabel htmlFor='password'>Password</FormLabel>
-          <Input 
-            className='form-field' 
-            type='password' 
-            name='password'
-            placeholder='********'
-            defaultValue={formData.password}
-            onChange={handleChange}
-          />
-          {error.password !== '' ?
-            <FormErrorMessage className='form-error'>
-            {error.password} 
-            </FormErrorMessage>
-            :
-            <FormHelperText className='form-helper' color='white'>
-              Enter your password
-            </FormHelperText>
-          } 
-        </FormControl>
-        
-        <FormControl isRequired mt={2} isInvalid={error.password_confirmation}>
-          <FormLabel htmlFor='password_confirmation'>Confirm password</FormLabel>
-          <Input 
-            className='form-field' 
-            type='password' 
-            name='password_confirmation'
-            placeholder='********'
-            defaultValue={formData.passwordConfirmation}
-            onChange={handleChange}
-          />
-          {error.password_confirmation !== '' ?
+      <Center className='form-background'>
+        <Container m={5} mt={10} className='form-container' p={10}>
+          
+          <FormControl isRequired isInvalid={error.username}>
+            <FormLabel htmlFor='username'>Username</FormLabel>
+            <Input 
+              className='form-field' 
+              type='username' 
+              name='username'
+              placeholder='username'
+              defaultValue={formData.username}
+              onChange={handleChange}
+            />
+            {error.username !== '' ?
               <FormErrorMessage className='form-error'>
-                {error.password_confirmation} 
+              {error.username} 
               </FormErrorMessage>
               :
-              <>
-                {error.responseError !== '' ?
-                  <FormHelperText className='form-helper' color='red.500'>
-                    {error.responseError}
-                  </FormHelperText>
-                  :
-                  <FormHelperText className='form-helper' color='white'>
-                    Confirm your password
-                  </FormHelperText>
-                }
-              </>
-          } 
-        </FormControl>
+              <FormHelperText className='form-helper' color='white'>
+                Enter your username
+              </FormHelperText>
+            } 
+          </FormControl>
+          
+          <FormControl isRequired mt={2} isInvalid={error.email}>
+            <FormLabel htmlFor='email'>Email address</FormLabel>
+            <Input 
+              className='form-field' 
+              type='email' 
+              name='email'
+              placeholder='name@email.com'
+              defaultValue={formData.email}
+              onChange={handleChange}
+            />
+            {error.email !== '' ?
+              <FormErrorMessage className='form-error'>
+              {error.email}
+              </FormErrorMessage>
+              :
+              <FormHelperText className='form-helper' color='white'>
+                Enter your email address
+              </FormHelperText>
+            } 
+          </FormControl>
+          
+          <FormControl isRequired mt={2} isInvalid={error.password}>
+            <FormLabel htmlFor='password'>Password</FormLabel>
+            <Input 
+              className='form-field' 
+              type='password' 
+              name='password'
+              placeholder='********'
+              defaultValue={formData.password}
+              onChange={handleChange}
+            />
+            {error.password !== '' ?
+              <FormErrorMessage className='form-error'>
+              {error.password} 
+              </FormErrorMessage>
+              :
+              <FormHelperText className='form-helper' color='white'>
+                Enter your password
+              </FormHelperText>
+            } 
+          </FormControl>
+          
+          <FormControl isRequired mt={2} isInvalid={error.password_confirmation}>
+            <FormLabel htmlFor='password_confirmation'>Confirm password</FormLabel>
+            <Input 
+              className='form-field' 
+              type='password' 
+              name='password_confirmation'
+              placeholder='********'
+              defaultValue={formData.password_confirmation}
+              onChange={handleChange}
+            />
+            {error.password_confirmation !== '' ?
+                <FormErrorMessage className='form-error'>
+                  {error.password_confirmation} 
+                </FormErrorMessage>
+                :
+                <FormHelperText className='form-helper' color='white'>
+                      Confirm your password
+                </FormHelperText>
+            } 
+          </FormControl>
 
-        <FormControl mt={10} >
-          <Center>
-            <Button 
-            className='submit-button' 
-            leftIcon={<TriangleUpIcon />} 
-            variant='solid' 
-            width='30%'
-            colorScheme='pink'
-            onClick={handleSubmit}
-            >
-              Submit
-            </Button>
-          </Center>
-        </FormControl>
-      </Container>
+          <FormControl mt={10} >
+            <Center>
+              <Button 
+              className='submit-button' 
+              leftIcon={<TriangleUpIcon />} 
+              variant='solid' 
+              width='10rem'
+              colorScheme='pink'
+              onClick={handleSubmit}
+              >
+                Submit
+              </Button>
+            </Center>
+          </FormControl>
+        </Container>
+      </Center>
     </>
   )
 

@@ -41,53 +41,55 @@ const Login = () => {
 
   return (
     <>
-      <Container mt={10} className='form-container' p={50}>
-        <FormControl isRequired>
-          <FormLabel htmlFor='email'>Email address</FormLabel>
-          <Input 
-            className='form-field' 
-            type='email' 
-            name='email'
-            placeholder='name@email.com'
-            defaultValue={formData.email}
-            onChange={handleChange}
-          />
-        </FormControl>
-        <FormControl isRequired mt={5} isInvalid={error}>
-          <FormLabel htmlFor='password'>Password</FormLabel>
-          <Input 
-            className='form-field' 
-            type='password' 
-            name='password'
-            placeholder='********'
-            defaultValue={formData.password}
-            onChange={handleChange}
-          />
-          {!error ?
-            <FormHelperText className='form-helper'>
-              Please enter your user details
-            </FormHelperText>
-            :
-            <FormErrorMessage className='form-error'>
-              {error} 
-            </FormErrorMessage>
-          } 
-        </FormControl>
-        <FormControl mt={10} >
-          <Center>
-            <Button 
-            className='submit-button' 
-            leftIcon={<TriangleUpIcon />} 
-            variant='solid' 
-            width='30%'
-            colorScheme='pink'
-            onClick={handleSubmit}
-            >
-              Submit
-            </Button>
-          </Center>
-        </FormControl>
-      </Container>
+      <Center className='form-background'>
+        <Container m={5} className='form-container' p={10}>
+          <FormControl isRequired>
+            <FormLabel htmlFor='email'>Email address</FormLabel>
+            <Input 
+              className='form-field' 
+              type='email' 
+              name='email'
+              placeholder='name@email.com'
+              defaultValue={formData.email}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <FormControl isRequired mt={5} isInvalid={error}>
+            <FormLabel htmlFor='password'>Password</FormLabel>
+            <Input 
+              className='form-field' 
+              type='password' 
+              name='password'
+              placeholder='********'
+              defaultValue={formData.password}
+              onChange={handleChange}
+            />
+            {!error ?
+              <FormHelperText className='form-helper'>
+                Please enter your user details
+              </FormHelperText>
+              :
+              <FormErrorMessage className='form-error'>
+                {error} 
+              </FormErrorMessage>
+            } 
+          </FormControl>
+          <FormControl mt={10} >
+            <Center>
+              <Button 
+              className='submit-button' 
+              leftIcon={<TriangleUpIcon />} 
+              variant='solid' 
+              width='10rem'
+              colorScheme='pink'
+              onClick={handleSubmit}
+              >
+                Submit
+              </Button>
+            </Center>
+          </FormControl>
+        </Container>
+      </Center>
     </>
   )
 

@@ -1,5 +1,5 @@
-from functools import partial
-from urllib import request
+# from functools import partial
+# from urllib import request
 from django.conf import settings
 from rest_framework.views import APIView # Base class to extend from
 from django.contrib.auth import get_user_model # User model
@@ -24,8 +24,10 @@ class RegisterView(APIView):
             user_to_add.is_valid()
             user_to_add.save()
             return Response(user_to_add.data, status=status.HTTP_201_CREATED)
+        except AssertionError:
+            return Response({ "detail": user_to_add.errors }, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         except:
-            return Response("Failed to add user", status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+            return Response({ "detail": "Failed to add user"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 class LoginView(APIView):
     
