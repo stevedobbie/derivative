@@ -22,6 +22,7 @@ const Home = () => {
   const [ drinks, setDrinks ] = useState([])
   const [ orderedBids, setOrderedBids ] = useState([])
   const [ orderedOffers, setOrderedOffers ] = useState([])
+  const [ appendedDrinks, setAppendedDrinks ] = useState([])
   
   // Get drink, measure and bid data
   useEffect(() => {
@@ -82,15 +83,25 @@ const Home = () => {
       })
       setOrderedOffers(orderedOfferArray)
 
+      // create object arrays for max bid and min offer
+      const maxBid = orderedBidArray.map(item => {
+        return {'maxBid': item[0]}
+      })
+      const minOffer = orderedOfferArray.map(item => {
+        return {'minOffer': item[0]}
+      })
+      
       // add max bids and min offer to drink object arrays so this can be rendered on page
-
-      const maxBid = {
-        
+      const appDrinksArr = []
+      for(let i=0; i<drinks.length; i++){
+        appDrinksArr.push({
+          ...drinks[i],
+          ...maxBid[i],
+          ...minOffer[i]
+        })
       }
+      setAppendedDrinks(appDrinksArr)
 
-      const newObj = {...drinks[0], ...{'maxBid': orderedBidArray[0][0]}}
-      Object.assign(drinks, {maxBid: orderedBidArray[0][0]})
-      console.log('newObjArray', newObj)
     }
   }, [drinks])
 
@@ -119,9 +130,9 @@ const Home = () => {
         <Center>
           <Flex className='drink-container'>
             
-            {drinks && orderedBids &&
-              drinks.map(drink => {
-                const { id, measures, name, abv, image, measures_sold, expiry_date } = drink
+            {appendedDrinks &&
+              appendedDrinks.map(drink => {
+                const { id, measures, name, abv, image, measures_sold, expiry_date, maxBid, minOffer } = drink
                   return (
                     <Popover key={id}>
                       <PopoverTrigger
@@ -139,12 +150,12 @@ const Home = () => {
                           <PopoverCloseButton />
                           <PopoverBody>
                             <Center>
-                              <Text width='5rem' textAlign='center'>Sell</Text>
-                              <Text width='5rem' textAlign='center'>Buy</Text>
+                              <Text width='5rem' textAlign='center' mr={5}>Sell</Text>
+                              <Text width='5rem' textAlign='center' ml={5}>Buy</Text>
                             </Center>
                             <Center>
-                              <Button colorScheme='pink' width='5rem'>Bidprice</Button>
-                              <Button colorScheme='blue' width='5rem'>Offerprice</Button>
+                              <Button colorScheme='pink' width='5rem' mr={5}>{maxBid.offer_to_buy}</Button>
+                              <Button colorScheme='blue' width='5rem' ml={5}>{minOffer.offer_to_sell}</Button>
                             </Center>
                           </PopoverBody>
                           <PopoverFooter>This is the footer</PopoverFooter>
