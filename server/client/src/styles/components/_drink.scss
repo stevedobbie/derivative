@@ -27,17 +27,17 @@
 }
 
 #spacing-div{
-  height: 400px;
+  height: 300px;
 }
 
 .ind-drink-container{
   position: absolute;
-  bottom: -3em;
+  bottom: -5em;
 }
 
 .ind-drink-img{
   height: 45rem;
-  width: 50vw;
+  width: 40vw;
   object-fit: contain;
   cursor: pointer;
   background-repeat: no-repeat;
@@ -57,7 +57,6 @@
   border: 3px solid lightgrey;
   box-shadow: 0 0 1rem 0.1rem grey;
   border-radius: 10px;
-  position: absolute;
   bottom: 2em;
   padding: 1.25em;
 }

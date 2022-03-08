@@ -10,6 +10,8 @@ import Drink from './components/Drink'
 function App() {
 
   const [ appendedDrinks, setAppendedDrinks ] = useState([])
+  const [ orderedBids, setOrderedBids ] = useState([])
+  const [ orderedOffers, setOrderedOffers ] = useState([])
 
   return (
     <>
@@ -17,10 +19,21 @@ function App() {
         <BrowserRouter>
           <SiteNavBar />
           <Routes>
-          <Route path='/' element={<Home appendedDrinks={appendedDrinks} setAppendedDrinks={setAppendedDrinks}/>} />
+          <Route path='/' element={<Home 
+              appendedDrinks={appendedDrinks} 
+              setAppendedDrinks={setAppendedDrinks}
+              orderedBids={orderedBids}
+              setOrderedBids={setOrderedBids}
+              orderedOffers={orderedOffers}
+              setOrderedOffers={setOrderedOffers}
+              />} />
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
-            <Route path='drinks/:drinkId' element={<Drink appendedDrinks={appendedDrinks} />} />
+            <Route path='drinks/:drinkId' element={<Drink 
+              appendedDrinks={appendedDrinks} 
+              orderedBids={orderedBids}
+              orderedOffers={orderedOffers}
+              />} />
           </Routes>
         </BrowserRouter>
       </ChakraProvider>

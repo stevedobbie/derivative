@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import { 
   Center, 
   Flex, 
@@ -15,16 +16,17 @@ import {
   PopoverFooter,
   Text
 } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { parseDate } from './utils/parseDate'
 import { pluraliseMeasureNames } from './utils/pluraliseMeasureNames'
 
-const Home = ( { appendedDrinks, setAppendedDrinks } ) => {
+const Home = ( { appendedDrinks, setAppendedDrinks, orderedBids, setOrderedBids, orderedOffers, setOrderedOffers } ) => {
 
   const [ drinks, setDrinks ] = useState([])
-  const [ orderedBids, setOrderedBids ] = useState([])
-  const [ orderedOffers, setOrderedOffers ] = useState([])
   
+  
+  const navigate = useNavigate()
+
   // Get drink, measure and bid data
   useEffect(() => {
     const getData = async () => {
@@ -105,11 +107,14 @@ const Home = ( { appendedDrinks, setAppendedDrinks } ) => {
     }
   }, [drinks])
 
-  
-  
-
-  
-
+  const handleClick = (e) => {
+    if (appendedDrinks.length) {
+      const drinkid = e.target.className.replace(/\D/g,'')[0]
+      navigate(`drinks/${drinkid}`)
+      }
+      
+    }
+    
   
   return (
     
@@ -163,18 +168,18 @@ const Home = ( { appendedDrinks, setAppendedDrinks } ) => {
                               <Text width='5rem' textAlign='center' ml={5}>Buy</Text>
                             </Center>
                             <Center>
-                              <Button colorScheme='pink' width='5rem' mr={5}>
-                                <Flex flexDirection='column'>
-                                  <div>{maxBid.offer_to_buy}</div>
-                                  <div className='number-units'>
+                              <Button colorScheme='pink' width='5rem' mr={5} onClick={handleClick} className={id}>
+                                <Flex flexDirection='column' className={id}>
+                                  <div className={id}>{maxBid.offer_to_buy}</div>
+                                  <div className={`number-units ${id}`}>
                                     {`${maxBid.number_units} ${pluraliseMeasureNames(minOffer.measure_unit_name, maxBid.number_units)}`}
                                   </div>
                                 </Flex>
                               </Button>
-                              <Button colorScheme='blue' width='5rem' ml={5}>
-                                <Flex flexDirection='column'>
-                                  <div>{minOffer.offer_to_sell}</div>
-                                  <div className='number-units'>
+                              <Button colorScheme='blue' width='5rem' ml={5} onClick={handleClick} className={id}>
+                                <Flex flexDirection='column' className={id}>
+                                  <div className={id}>{minOffer.offer_to_sell}</div>
+                                  <div className={`number-units ${id}`}>
                                     {`${minOffer.number_units} ${pluraliseMeasureNames(minOffer.measure_unit_name, minOffer.number_units)}`}
                                   </div>
                                 </Flex>
