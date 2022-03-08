@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-import { Center, Flex, Box } from '@chakra-ui/react'
+import { Center, Flex, Box, CircularProgress, CircularProgressLabel, Container } from '@chakra-ui/react'
 
 
 const Drink = () => {
@@ -45,10 +45,28 @@ const Drink = () => {
             >
             </Box>
           </div>
-          <div id='pint-glass-overlay'></div>
         </Center>
       </div>
       <div id='bar-edge-div'></div>
+      <Center>
+        <Container id='price-info' maxW='50rem'>
+          <Flex align='flex-end'>
+            <CircularProgress 
+              className='progress-bar'
+              value={drink.total_measures - drink.measures_remaining}
+              size='12rem'
+              thickness='15px'
+            >
+              <CircularProgressLabel>
+                <Flex flexDirection='column'>
+                  <span>{`${drink.total_measures - drink.measures_remaining}%`}</span>
+                  <span id="progress-label">drink sold</span>
+                </Flex>
+              </CircularProgressLabel>
+            </CircularProgress>
+          </Flex>
+        </Container>
+      </Center>
       
       
     </div>

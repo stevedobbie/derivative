@@ -51,15 +51,18 @@
   background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
 }
 
-#pint-glass-overlay{
-  z-index: 10;
-  top: 50%;
-  left: 50%;
-  // position: absolute;
-  border-bottom: 10rem solid lightgrey;
-	border-left: 1rem solid transparent;
-	border-right: 1rem solid transparent;
-  transform: rotateX(180deg);
-	height: 0;
-	width: 12rem;
+#price-info{
+  height: 15rem;
+  background-color: white;
+  border: 3px solid lightgrey;
+  box-shadow: 0 0 1rem 0.1rem grey;
+  border-radius: 10px;
+  position: absolute;
+  bottom: 2em;
+  padding: 1.25em;
+}
+
+#progress-label{
+  font-size: 16px;
+  line-height: 15px;
 }
