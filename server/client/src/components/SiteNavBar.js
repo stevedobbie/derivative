@@ -12,6 +12,10 @@ const SiteNavBar = () => {
 
   const navigate = useNavigate()
 
+  const url = window.location.href.split('/') // get page location
+  const page = url[url.length - 1]
+  console.log(page)
+
   const handleLogOut = () => {
     localStorage.removeItem('derivative-token')
     navigate('/')
@@ -35,73 +39,113 @@ const SiteNavBar = () => {
             {userAuthenticated() ? 
             <>  
               <Link to='profile'>
-                <Button className='nav-button' variant="ghost" aria-label="Home" my={5} w="100%">
+                <Button className='nav-button' variant="ghost" aria-label="Home" my={5} w="100%" fontSize='1.25em'>
                   My profile
                 </Button>
               </Link>
-              <Link id='nav-logout' to='logout' mr={10} onClick={handleLogOut}>
-                <Button className='nav-button' variant="ghost" aria-label="Home" my={5} w="100%">
+              <Link className='nav-logout' to='logout' mr={10} onClick={handleLogOut}>
+                <Button className='nav-button' variant="ghost" aria-label="Home" my={5} w="100%" fontSize='1.25em'>
                   Logout
                 </Button>
               </Link>
             </>
             :
             <>
-              <Link id='nav-logout' to='login' mr={10}>
-                <Button className='nav-button' variant="ghost" aria-label="Home" my={5} w="100%">
-                  Login
-                </Button>
-              </Link>
-            </>
+              {page === 'login' ?
+              <>
+                <Link className='nav-logout' to='register' mr={10}>
+                  <Button className='nav-button' variant="ghost" aria-label="Home" my={5} w="100%" fontSize='1.25em'>
+                    Register
+                  </Button>
+                </Link>
+              </>
+              :
+              <>
+                <Link className='nav-logout' to='login' mr={10}>
+                  <Button className='nav-button' variant="ghost" aria-label="Login" my={5} w="100%" fontSize='1.25em'>
+                    Login
+                  </Button>
+                </Link>
+              </>
             }
+          </>
+          }  
           </Flex>
           {/* Mobile */}
           <IconButton
             aria-label="Open Menu"
             size="lg"
             mr={2}
-            
+            colorScheme='purple'
             icon={<HamburgerIcon />}
             onClick={() => setDisplay('flex')}
             display={['flex', 'flex', 'none', 'none']}
           />
-        </Flex>
+          </Flex>
         
           {/* Mobile Content */}
-        <Flex
-          w='100vw'
-          display={display}
-          bgColor="gray.50"
-          zIndex={20}
-          h="100vh"
-          pos="fixed"
-          top="0"
-          left="0"
-          overflowY="auto"
-          flexDir="column"
-        >
+          <Flex
+            w='100vw'
+            display={display}
+            bgColor="purple.50"
+            bgImage="url('https://i.imgur.com/pO1FMqh.jpg')"
+            color='black'
+            zIndex={20}
+            h="100vh"
+            pos="fixed"
+            top="0"
+            left="0"
+            overflowY="auto"
+            flexDir="column"
+          >
           <Flex justify="flex-end">
             <IconButton
-              mt={2}
+              my={5}
               mr={2}
               aria-label="Open Menu"
               size="lg"
               icon={<CloseIcon />}
+              colorScheme='purple'
               onClick={() => setDisplay('none')}
             />
           </Flex>
-
           <Flex flexDir="column" align="center">
-            <Link to='profile'>
-              <Button variant="ghost" aria-label="Home" mt={5} w="100%">
-                My profile
-              </Button>
-            </Link>
-            <Link to='logout'>
-              <Button variant="ghost" aria-label="Home" mt={5} w="100%">
-                Logout
-              </Button>
-            </Link>
+            {/* Insert info here ---> */}
+            {userAuthenticated() ? 
+            <>  
+              <Link id='nav-profile-mob' to='profile'>
+                <Button className='nav-button-mob' variant="solid" aria-label="My profile" mt={5} w="12em" colorScheme='whiteAlpha'>
+                  My profile
+                </Button>
+              </Link>
+              <Link id='nav-logout-mob' to='logout' onClick={handleLogOut}>
+                <Button className='nav-button-mob' variant="solid" aria-label="Logout" mt={5} w="12em" colorScheme='whiteAlpha'>
+                  Logout
+                </Button>
+              </Link>
+            </>
+            :
+            <>
+              {page === 'login' ?
+              <>
+                <Link id='nav-register-mob' to='register' mr={10}>
+                  <Button className='nav-button-mob' variant="solid" aria-label="Register" mt={5} w="12em" colorScheme='whiteAlpha'>
+                    Register
+                  </Button>
+                </Link>
+              </>
+              :
+              <>
+                <Link id='nav-login-mob' to='login' mr={10}>
+                  <Button className='nav-button-mob' variant="solid" aria-label="Login" mt={5} w="12em" colorScheme='whiteAlpha'>
+                    Login
+                  </Button>
+                </Link>
+              </>
+            }
+          </>
+          }  
+          {/* Insert info above */}
           </Flex>
         </Flex>
       </Flex>

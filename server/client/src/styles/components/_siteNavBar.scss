@@ -1,11 +1,21 @@
 #nav-container{
   color: white;
+  outline: 5px solid white;
+  box-shadow: 
+    // 0 0 .2rem #fff,
+    // 0 0 .2rem #fff,
+    // 0 0 1.5rem -1.5rem #bc13fe,
+    // 0 0 0.8rem -0.8rem #bc13fe,
+    // 0 0 2.8rem -2.8rem #bc13fe,
+    inset 0 -0.1rem .2rem #fff,
+    inset 0 -1rem 1.5rem -0.2rem #bc13fe;
 }
+
 .nav-button:hover{
   color: black;
 }
 
-#nav-logout{
+.nav-logout{
   margin-right: 20px;
 }
 
