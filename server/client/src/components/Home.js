@@ -16,6 +16,7 @@ import {
   Text
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
+import { parseDate } from './utils/parseDate'
 
 const Home = () => {
 
@@ -101,12 +102,14 @@ const Home = () => {
         })
       }
       setAppendedDrinks(appDrinksArr)
-
+      console.log(parseDate(drinks[0].expiry_date))
     }
   }, [drinks])
 
 
+  
 
+  
 
   
   return (
@@ -144,9 +147,11 @@ const Home = () => {
                         </div>
                       </PopoverTrigger>
                       <Portal>
-                        <PopoverContent maxW="250px">
+                        <PopoverContent maxW="300px">
                           <PopoverArrow />
-                          <PopoverHeader>{name}</PopoverHeader>
+                          <PopoverHeader>
+                            <span className='drink-name'>{name}</span>
+                          </PopoverHeader>
                           <PopoverCloseButton />
                           <PopoverBody>
                             <Center>
@@ -154,11 +159,25 @@ const Home = () => {
                               <Text width='5rem' textAlign='center' ml={5}>Buy</Text>
                             </Center>
                             <Center>
-                              <Button colorScheme='pink' width='5rem' mr={5}>{maxBid.offer_to_buy}</Button>
-                              <Button colorScheme='blue' width='5rem' ml={5}>{minOffer.offer_to_sell}</Button>
+                              <Button colorScheme='pink' width='5rem' mr={5}>
+                                {maxBid.offer_to_buy}
+                              </Button>
+                              <Button colorScheme='blue' width='5rem' ml={5}>
+                                {minOffer.offer_to_sell}
+                              </Button>
                             </Center>
                           </PopoverBody>
-                          <PopoverFooter>This is the footer</PopoverFooter>
+                          <PopoverFooter>
+                            {parseDate(expiry_date).days === 0 ?
+                            <>
+                              Expires: {`${parseDate(expiry_date).hours} hours, ${parseDate(expiry_date).minutes} mins`}
+                            </> 
+                            : 
+                            <>
+                              Expires: {`${parseDate(expiry_date).days} days, ${parseDate(expiry_date).hours} hours`}
+                            </> 
+                            }
+                          </PopoverFooter>
                         </PopoverContent>
                       </Portal>
                     </Popover>
