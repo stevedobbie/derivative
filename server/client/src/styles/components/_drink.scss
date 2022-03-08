@@ -1,0 +1,65 @@
+#hero-drink{
+  z-index: 2;
+  font-family: 'Neonderthaw', cursive;
+  border: 5px solid white; 
+  border-radius: 20px;
+  padding: 0 10px 0px 10px;
+  margin-bottom: 10px;
+  box-shadow: 
+    0 0 .2rem #fff,
+    0 0 .2rem #fff,
+    0 0 1.5rem #ff5f1f,
+    0 0 0.8rem #ff5f1f,
+    0 0 2.8rem #ff5f1f,
+    inset 0 0 1.3rem #ff5f1f;
+  h1{
+    font-size: 6vw;
+    color: #fff;
+    text-shadow: 0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px #b026ff,
+      0 0 82px #b026ff,
+      0 0 92px #b026ff,
+      0 0 102px #b026ff,
+      0 0 151px #b026ff,
+  }
+}
+
+#spacing-div{
+  height: 400px;
+}
+
+.ind-drink-container{
+  position: absolute;
+  bottom: -3em;
+}
+
+.ind-drink-img{
+  height: 45rem;
+  width: 50vw;
+  object-fit: contain;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% auto;
+}
+
+#bar-edge-div{
+  height: 50px;
+  background-color: #45000e;
+  background-image: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+}
+
+#pint-glass-overlay{
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  // position: absolute;
+  border-bottom: 10rem solid lightgrey;
+	border-left: 1rem solid transparent;
+	border-right: 1rem solid transparent;
+  transform: rotateX(180deg);
+	height: 0;
+	width: 12rem;
+}

@@ -19,12 +19,11 @@ import { Link } from 'react-router-dom'
 import { parseDate } from './utils/parseDate'
 import { pluraliseMeasureNames } from './utils/pluraliseMeasureNames'
 
-const Home = () => {
+const Home = ( { appendedDrinks, setAppendedDrinks } ) => {
 
   const [ drinks, setDrinks ] = useState([])
   const [ orderedBids, setOrderedBids ] = useState([])
   const [ orderedOffers, setOrderedOffers ] = useState([])
-  const [ appendedDrinks, setAppendedDrinks ] = useState([])
   
   // Get drink, measure and bid data
   useEffect(() => {
