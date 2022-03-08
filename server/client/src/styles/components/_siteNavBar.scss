@@ -1,5 +1,4 @@
 #nav-container{
-  background-color: $nav;
   color: white;
 }
 .nav-button:hover{
@@ -8,4 +7,9 @@
 
 #nav-logout{
   margin-right: 20px;
+}
+
+#logo-img{
+  height: 70px;
+  width: 100%;
 }
