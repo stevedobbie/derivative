@@ -50,6 +50,9 @@
   position: relative;
 }
 
+.drink-name{
+  font-size: 20px;
+}
 
 .drink-container{
   position: absolute;
@@ -62,6 +65,10 @@
   width: 50vw;
   object-fit: contain;
   cursor: pointer;
+}
+
+.number-units{
+  font-size: 10px;
 }
 
 #img-1{

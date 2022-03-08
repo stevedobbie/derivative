@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { parseDate } from './utils/parseDate'
+import { pluraliseMeasureNames } from './utils/pluraliseMeasureNames'
 
 const Home = () => {
 
@@ -102,11 +103,10 @@ const Home = () => {
         })
       }
       setAppendedDrinks(appDrinksArr)
-      console.log(parseDate(drinks[0].expiry_date))
     }
   }, [drinks])
 
-
+  
   
 
   
@@ -135,7 +135,7 @@ const Home = () => {
             
             {appendedDrinks &&
               appendedDrinks.map(drink => {
-                const { id, measures, name, abv, image, measures_sold, expiry_date, maxBid, minOffer } = drink
+                const { id, measures, name, abv, image, measures_remaining, expiry_date, maxBid, minOffer } = drink
                   return (
                     <Popover key={id}>
                       <PopoverTrigger
@@ -150,8 +150,13 @@ const Home = () => {
                         <PopoverContent maxW="300px">
                           <PopoverArrow />
                           <PopoverHeader>
-                            <span className='drink-name'>{name}</span>
+                            <span className='drink-name'>{name}</span> ({abv}%)<br />
+                            <span className='measures-remaining'>
+                              {`${measures.length} sold 
+                              (${measures_remaining} ${pluraliseMeasureNames(measures[0].measure_unit_name, measures_remaining)} left)`}
+                            </span>
                           </PopoverHeader>
+                          
                           <PopoverCloseButton />
                           <PopoverBody>
                             <Center>
@@ -160,10 +165,20 @@ const Home = () => {
                             </Center>
                             <Center>
                               <Button colorScheme='pink' width='5rem' mr={5}>
-                                {maxBid.offer_to_buy}
+                                <Flex flexDirection='column'>
+                                  <div>{maxBid.offer_to_buy}</div>
+                                  <div className='number-units'>
+                                    {`${maxBid.number_units} ${pluraliseMeasureNames(minOffer.measure_unit_name, maxBid.number_units)}`}
+                                  </div>
+                                </Flex>
                               </Button>
                               <Button colorScheme='blue' width='5rem' ml={5}>
-                                {minOffer.offer_to_sell}
+                                <Flex flexDirection='column'>
+                                  <div>{minOffer.offer_to_sell}</div>
+                                  <div className='number-units'>
+                                    {`${minOffer.number_units} ${pluraliseMeasureNames(minOffer.measure_unit_name, minOffer.number_units)}`}
+                                  </div>
+                                </Flex>
                               </Button>
                             </Center>
                           </PopoverBody>
