@@ -10,7 +10,15 @@ import {
   Box, 
   CircularProgress, 
   CircularProgressLabel, 
-  Container 
+  Container,
+  useDisclosure,
+  Drawer,
+  DrawerBody,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  Input 
 } from '@chakra-ui/react'
 import { aggregateBids } from './utils/aggregateBids'
 import { parseDate } from './utils/parseDate'
@@ -20,12 +28,17 @@ import { getTokenFromLocalStorage, userAuthenticated } from './utils/userAuthent
 const Drink = () => {
 
   const { drinkId } = useParams()
+  
   const [ drink, setDrink ] = useState('')
   const [ indDrinkOrderedBids, setIndDrinkOrderedBids ] = useState([])
   const [ indDrinkOrderedOffers, setIndDrinkOrderedOffers ] = useState([])
   const [ top3Bids, setTop3Bids ] = useState([])
   const [ top3Offers, setTop3Offers ] = useState([])
   const [ profile, setProfile ] = useState('')
+  const [ tradeType, setTradeType ] = useState('')
+  
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
 
   useEffect(() => {
     const getDrinkData = async () => {
@@ -103,10 +116,17 @@ const Drink = () => {
 
   }, [drink])
 
+
   // logic to generate and pre-populate the drawer
   const handleClick = (e) => {
     const selectedPrice = e.currentTarget.value
     const selectedType = e.currentTarget.name
+    setTradeType(selectedType)
+    console.log(selectedPrice, selectedType)
+
+    
+
+
 
     // * Buy journey
     // if buy value and selection is the lowest offer to sell (check against the offer to sell array)
@@ -187,7 +207,8 @@ const Drink = () => {
                         width='5rem' mr={2} 
                         key={id} 
                         id={`bid-${index}`} 
-                        onClick={handleClick} 
+                        onClick={onOpen} 
+                        onMouseDown={handleClick}
                         value={offer_to_buy}
                         name='sell'
                       >
@@ -230,7 +251,8 @@ const Drink = () => {
                         width='5rem' 
                         mr={2} 
                         id={`offer-${index}`} 
-                        onClick={handleClick} 
+                        onClick={onOpen} 
+                        onMouseDown={handleClick}
                         value={offer_to_sell}
                         key={id}
                         name='buy'
@@ -251,6 +273,33 @@ const Drink = () => {
             </Flex>
           </Container>
         </Center>
+        <Drawer
+          isOpen={isOpen}
+          placement='right'
+          onClose={onClose}
+          // finalFocusRef={btnRef}
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <DrawerCloseButton />
+            {tradeType && tradeType === 'sell' ? 
+            <DrawerHeader>Submit your <span id='trade-type-sell'>{tradeType}</span> trade</DrawerHeader>
+            :
+            <DrawerHeader>Submit your <span id='trade-type-buy'>{tradeType}</span> trade</DrawerHeader>
+            }
+            <DrawerBody>
+              <Input placeholder='Type here...' />
+              <Flex justifyContent='flex-end'>
+                <Button variant='outline' mt={5} mr={3}>
+                  Cancel
+                </Button>
+                <Button colorScheme='purple' mt={5}>
+                  Submit
+                </Button>
+              </Flex>
+            </DrawerBody>
+          </DrawerContent>
+        </Drawer>
       </>
     }   
     </div>
