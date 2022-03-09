@@ -18,7 +18,11 @@ import {
   DrawerContent,
   DrawerCloseButton,
   DrawerHeader,
-  Input 
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper 
 } from '@chakra-ui/react'
 import { aggregateBids } from './utils/aggregateBids'
 import { parseDate } from './utils/parseDate'
@@ -34,8 +38,9 @@ const Drink = () => {
   const [ indDrinkOrderedOffers, setIndDrinkOrderedOffers ] = useState([])
   const [ top3Bids, setTop3Bids ] = useState([])
   const [ top3Offers, setTop3Offers ] = useState([])
-  const [ profile, setProfile ] = useState('')
-  const [ tradeType, setTradeType ] = useState('')
+  const [ profile, setProfile ] = useState([])
+  const [ tradeInfo, setTradeInfo ] = useState([])
+  const [ tradeMsg, setTradeMsg ] = useState('')
   
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -61,7 +66,7 @@ const Drink = () => {
             }
           }
           const { data } = await axios.get(`/api/auth/profile/`, headers)
-          setProfile(data)
+          setProfile([data])
         } catch (error) {
           console.log(error)
         }
@@ -117,26 +122,56 @@ const Drink = () => {
   }, [drink])
 
 
-  // logic to generate and pre-populate the drawer
+  // logic to generate data to pre-populate the drawer
   const handleClick = (e) => {
     const selectedPrice = e.currentTarget.value
     const selectedType = e.currentTarget.name
-    setTradeType(selectedType)
-    console.log(selectedPrice, selectedType)
+    setTradeInfo([selectedType, selectedPrice])
+    if(e.currentTarget.value >= top3Offers[0].offer_to_sell && e.currentTarget.name === 'buy'){
+      setTradeMsg(`Complete trade at best price: £${top3Offers[0].offer_to_sell}`)
+    }
+    if(e.currentTarget.value <= top3Bids[2].offer_to_buy && e.currentTarget.name === 'sell'){
+      setTradeMsg(`Complete trade at best price: £${top3Bids[2].offer_to_buy}`)
+    }
+  }
 
+  // logic to provide message on trade type before clicking submit
+  const handleChange = (e) => {
     
+    if (tradeInfo.length && top3Bids && top3Offers) {
+      
+      // logic to submit new bid, update offer or complete transaction depending on value of input
+      if(e < top3Offers[0].offer_to_sell && tradeInfo[0] === 'buy') {
+        // console.log('submit new offer to buy')
+        setTradeMsg('Submit new offer to buy')
+      }
+      if(e >= top3Offers[0].offer_to_sell && tradeInfo[0] === 'buy') {
+        // console.log(`Complete trade at best price - £${top3Offers[0].offer_to_sell}`)
+        setTradeMsg(`Complete trade at best price: £${top3Offers[0].offer_to_sell}`)
+      } 
+      if (e > top3Bids[2].offer_to_buy && tradeInfo[0] === 'sell') {
+        // console.log('update offer to sell')
+        setTradeMsg('Update offer to sell')
+      }
+      if (e <= top3Bids[2].offer_to_buy && tradeInfo[0] === 'sell') {
+        // console.log(`Complete trade at best price - £${top3Bids[2].offer_to_buy}`)
+        setTradeMsg(`Complete trade at best price: £${top3Bids[2].offer_to_buy}`)
+      }
+    }
+  }
 
-
-
-    // * Buy journey
-    // if buy value and selection is the lowest offer to sell (check against the offer to sell array)
-      // - then prepare for a buy
-      // - value
+  const submitNewBid = () => {
 
   }
 
+  const updateOffer = () => {
+    
+  }
+
+  // trading logic
   const handleSubmit = (e) => {
-    // logic to make the trade or submit a bid / offer 
+    // logic to make the trade or submit a bid / offer
+    
   }
 
 
@@ -283,18 +318,74 @@ const Drink = () => {
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton />
-            {tradeType && tradeType === 'sell' ? 
-            <DrawerHeader>Submit your <span id='trade-type-sell'>{tradeType}</span> trade</DrawerHeader>
+            {profile.length &&
+            <>
+              <DrawerHeader><span id='balance-title'>{profile[0].username}</span>&#39;s balance</DrawerHeader>
+              <Flex justifyContent='space-evenly'>
+                <Box id='account-balance' className='user-info'>
+                  <Flex flexDirection='column' alignItems='center'>
+                    <span className='balance-text'>Balance</span>
+                    <span className='balance-figure'>{`£${profile[0].account_balance}`}</span>
+                  </Flex>
+                </Box>
+                <Box id='account-measures' className='user-info'>
+                  <Flex flexDirection='column' alignItems='center'>
+                    <span className='balance-text'>Measures</span>
+                    <span className='balance-figure'>{`${profile[0].measures.length}`}</span>
+                  </Flex>
+                </Box>
+                <Box id='account-bids' className='user-info'>
+                  <Flex flexDirection='column' alignItems='center'>
+                    <span className='balance-text'>Open bids</span>
+                    <span className='balance-figure'>{`${profile[0].bids.length}`}</span>
+                  </Flex>
+                </Box>
+              </Flex>
+            </>
+            }
+            <Divider mt={5}/>
+            {tradeInfo.length && tradeInfo[0] === 'sell' ? 
+            <DrawerHeader>Submit your <span id='trade-type-sell'>{tradeInfo[0]}</span> trade</DrawerHeader>
             :
-            <DrawerHeader>Submit your <span id='trade-type-buy'>{tradeType}</span> trade</DrawerHeader>
+            <DrawerHeader>Submit your <span id='trade-type-buy'>{tradeInfo[0]}</span> trade</DrawerHeader>
             }
             <DrawerBody>
-              <Input placeholder='Type here...' />
+              <Flex flexDirection='column' justifyContent='space-between'>
+                <Flex id='price-input' alignItems='center' justifyContent='space-between'>
+                  {drink.length &&
+                    <Box>{drink[0].name}</Box>
+                  }
+                  {tradeInfo.length &&
+                  <NumberInput 
+                    defaultValue={tradeInfo[1]} 
+                    min={0.01} 
+                    max={99.99} 
+                    precision={2}
+                    clampValueOnBlur={false}
+                    step={0.01}
+                    onChange={handleChange}
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                  }
+                </Flex>
+                <Flex justifyContent='space-between' mt={5}>
+                  <span>Trade type</span>
+                  {tradeMsg &&
+                    <span>{tradeMsg}</span>
+                  }
+                </Flex>
+              </Flex>
+              <Divider mt={5} />
               <Flex justifyContent='flex-end'>
-                <Button variant='outline' mt={5} mr={3}>
+                <Button variant='outline' mt={5} mr={3} onClick={onClose}>
                   Cancel
                 </Button>
-                <Button colorScheme='purple' mt={5}>
+                <Button colorScheme='purple' mt={5} onClick={handleSubmit}>
                   Submit
                 </Button>
               </Flex>
