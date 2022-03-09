@@ -10,8 +10,11 @@ import {
   Box, 
   CircularProgress, 
   CircularProgressLabel, 
-  Container } from '@chakra-ui/react'
+  Container 
+} from '@chakra-ui/react'
 import { aggregateBids } from './utils/aggregateBids'
+import { parseDate } from './utils/parseDate'
+import { getTokenFromLocalStorage, userAuthenticated } from './utils/userAuthenticated'
 
 
 const Drink = () => {
@@ -22,9 +25,10 @@ const Drink = () => {
   const [ indDrinkOrderedOffers, setIndDrinkOrderedOffers ] = useState([])
   const [ top3Bids, setTop3Bids ] = useState([])
   const [ top3Offers, setTop3Offers ] = useState([])
+  const [ profile, setProfile ] = useState('')
 
   useEffect(() => {
-    const getData = async () => {
+    const getDrinkData = async () => {
       try {
         const { data } = await axios.get(`/api/drinks/${drinkId}`)
         console.log(data)
@@ -33,7 +37,25 @@ const Drink = () => {
         console.log(error)
       }
     }
-    getData()
+    getDrinkData()
+    
+    if (userAuthenticated) {
+      const getProfile = async () => {
+        try {
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${getTokenFromLocalStorage()}`
+            }
+          }
+          const { data } = await axios.get(`/api/auth/profile/`, headers)
+          setProfile(data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      getProfile()
+    }
+  
   }, [])
   
   useEffect(() => {
@@ -81,8 +103,21 @@ const Drink = () => {
 
   }, [drink])
 
-  // when user clicks bid or offer button
+  // logic to generate and pre-populate the drawer
+  const handleClick = (e) => {
+    const selectedPrice = e.currentTarget.value
+    const selectedType = e.currentTarget.name
 
+    // * Buy journey
+    // if buy value and selection is the lowest offer to sell (check against the offer to sell array)
+      // - then prepare for a buy
+      // - value
+
+  }
+
+  const handleSubmit = (e) => {
+    // logic to make the trade or submit a bid / offer 
+  }
 
 
   return (
@@ -136,7 +171,10 @@ const Drink = () => {
                 </Flex>
               </Flex>
               <Flex flexDirection='column' justifyContent='center'>
-                <Flex mb='1rem' className='price-title'>{drink[0].name}</Flex>
+                <Flex mb='1rem' className='price-title' flexDirection='row' justifyContent='space-between'>
+                  <span id='price-name'>{drink[0].name}</span>
+                  <span>({`${drink[0].abv}%`})</span>
+                </Flex>
                 <Divider />
                 <Flex justifyContent='flex-end' mr='1.2rem' my='1.2rem'>Sell</Flex>
                   <Flex flexDirection='row'>
@@ -144,7 +182,15 @@ const Drink = () => {
                   top3Bids.map((bid, index) => {
                     const { id, offer_to_buy, number_units } = bid
                     return (
-                      <Button colorScheme='pink' width='5rem' mr={2} key={id} id={`bid-${index}`}>
+                      <Button 
+                        colorScheme='pink' 
+                        width='5rem' mr={2} 
+                        key={id} 
+                        id={`bid-${index}`} 
+                        onClick={handleClick} 
+                        value={offer_to_buy}
+                        name='sell'
+                      >
                         <Flex flexDirection='column'>
                           <div >{offer_to_buy}</div>
                           <div className='number-units'>
@@ -157,7 +203,20 @@ const Drink = () => {
                 </Flex> 
               </Flex>
               <Flex flexDirection='column' justifyContent='center'>
-                <Flex mb='1rem' className='price-title'>Expires...</Flex>
+                <Flex mb='1rem' className='price-title' flexDirection='row' justifyContent='space-between'>
+                  <span id='price-name'>Expires</span>
+                  <span> 
+                    {parseDate(drink[0].expiry_date).days === 0 ?
+                      <>
+                        {`${parseDate(drink[0].expiry_date).hours} hours, ${parseDate(drink[0].expiry_date).minutes} mins`}
+                      </> 
+                      : 
+                      <>
+                        {`${parseDate(drink[0].expiry_date).days} days, ${parseDate(drink[0].expiry_date).hours} hours`}
+                      </> 
+                    }
+                  </span>
+                </Flex>
                 <Divider />
                 <Flex justifyContent='flex-start' my='1.2rem'>Buy</Flex>
                   <Flex flexDirection='row'>
@@ -165,14 +224,25 @@ const Drink = () => {
                   top3Offers.map((offer, index) => {
                     const { id, offer_to_sell, number_units } = offer
                     return (
-                      <Button colorScheme='blue' width='5rem' mr={2} key={id} id={`offer-${index}`}>
+                      
+                      <Button 
+                        colorScheme='blue'
+                        width='5rem' 
+                        mr={2} 
+                        id={`offer-${index}`} 
+                        onClick={handleClick} 
+                        value={offer_to_sell}
+                        key={id}
+                        name='buy'
+                      >
                         <Flex flexDirection='column'>
-                          <div >{offer_to_sell}</div>
+                          <div id='offer-price'>{offer_to_sell}</div>
                           <div className='number-units'>
                             {/* {`${number_units} ${pluraliseMeasureNames(minOffer.measure_unit_name, maxBid.number_units)}`} */}
                           </div>
                         </Flex>
                       </Button>
+                      
                     )})
                   }
                 </Flex> 
