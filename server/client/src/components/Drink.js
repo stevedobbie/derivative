@@ -22,7 +22,14 @@ import {
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
-  NumberDecrementStepper 
+  NumberDecrementStepper, 
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon, 
+  Tag,
+  Spacer
 } from '@chakra-ui/react'
 import { aggregateBids } from './utils/aggregateBids'
 import { parseDate } from './utils/parseDate'
@@ -46,11 +53,6 @@ const Drink = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const getData = () => {
-    
-  }
-
-
-  useEffect(() => {
     const getDrinkData = async () => {
       try {
         const { data } = await axios.get(`/api/drinks/${drinkId}`)
@@ -78,13 +80,17 @@ const Drink = () => {
       }
       getProfile()
     }
-  
+  }
+
+  useEffect(() => {
+    getData()
   }, [])
   
   useEffect(() => {
 
     // calculate top3 bids and offers again - better to do again here from the single drink data in case the drink array order changes
     if (drink.length){
+      
       // generate an array of bid objects
       const bidArray = drink.map((indDrink) => {
       const { bids } = indDrink
@@ -179,15 +185,15 @@ const Drink = () => {
   const submitNewBid = (e) => {
     
     console.log('I will update an existing bid or submit a new bid')
-    
+    const priceToUpdate = parseFloat(price)
+
     // check if user has a bid for this drink
     const existingBids = profile[0].bids.filter(bid => bid.drink === parseInt(drinkId))
     // if they have an existing bid, update it
     if (existingBids.length) {
       console.log('I will update an existing bid')
       const bidId = existingBids[0].id
-      const priceToUpdate = parseFloat(price)
-
+      
       // update bid
       if (userAuthenticated) {
         const updateBid = async () => {
@@ -209,19 +215,35 @@ const Drink = () => {
         }
         updateBid()
       }
-
-      // call APIs again - to retrieve updated profile and drink info
-
       
-
-
-
-
-
-
     } 
     
     // if user has no bids, post a new one
+    if (!existingBids.length) {
+      if (userAuthenticated) {
+        const postBid = async () => {
+          try {
+            const headers = {
+              headers: {
+                Authorization: `Bearer ${getTokenFromLocalStorage()}`
+              }
+            }
+            const input = {
+              offer_to_buy: priceToUpdate
+            }
+            const { data } = await axios.post(`/api/bids/`, input, headers)
+            console.log('Bid has been successfully created')
+            console.log(data)
+          } catch (error) {
+            console.log(error)
+          }
+        }
+        postBid()
+      }
+    }
+    
+    // call APIs again - to retrieve updated profile and drink info
+    getData()
   }
 
   const updateOffer = () => {
@@ -234,6 +256,11 @@ const Drink = () => {
     tradeMsg === 'Update or submit new offer to buy' && submitNewBid(e)
   }
 
+  const ownedMeasuresOrBids = (arr) => {
+    return arr.filter(item => item.drink === parseInt(drinkId))
+  }
+
+  
 
   return (
     
@@ -378,7 +405,7 @@ const Drink = () => {
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton />
-            {profile.length &&
+            {profile.length && drink.length &&
             <>
               <DrawerHeader><span id='balance-title'>{profile[0].username}</span>&#39;s balance</DrawerHeader>
               <Flex justifyContent='space-evenly'>
@@ -401,6 +428,56 @@ const Drink = () => {
                   </Flex>
                 </Box>
               </Flex>
+              <DrawerHeader>
+                You own the following
+                <span id='drink-text'> {drink[0].name}...</span>
+              </DrawerHeader>
+              <Accordion allowMultiple defaultIndex={[0]} ml={2}>
+                <AccordionItem>
+                  <AccordionButton bg='gray.100'>
+                    <Box flex='1' textAlign='left'>
+                      Measures to sell
+                    </Box>
+                  <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel>
+                    {ownedMeasuresOrBids(profile[0].measures).map(measure => {
+                      const { id, updated_at, offer_to_sell, number_units, measure_unit_name  } = measure
+                      const updatedDate = new Date(updated_at)
+                      return (
+                        <Flex key={id} my={2} mx={1} justifyContent='space-between'>
+                          <Box>{number_units} {measure_unit_name}</Box><Spacer />
+                          <Tag mr={3} size='sm' colorScheme='gray'>Updated: {updatedDate.getDate()}-{updatedDate.getMonth()+1}-{updatedDate.getFullYear()}</Tag>
+                          <Box fontSize='1.1em' color='orange.500' fontWeight='bold'>{`£${offer_to_sell}`}</Box>
+                        </Flex>
+                      )
+                    }
+                      )}
+                  </AccordionPanel>
+                </AccordionItem>
+                <AccordionItem mt={5}>
+                  <AccordionButton bg='gray.100'>
+                    <Box flex='1' textAlign='left'>
+                      Bids to buy
+                    </Box>
+                  <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel>
+                    {ownedMeasuresOrBids(profile[0].bids).map(bid => {
+                      const { id, updated_at, offer_to_buy } = bid
+                      const updatedDate = new Date(updated_at)
+                      return (
+                        <Flex key={id} my={2} mx={1} justifyContent='space-between'>
+                          <Box>{drink[0].name}</Box><Spacer />
+                          <Tag mr={3} size='sm' colorScheme='gray'>Updated: {updatedDate.getDate()}-{updatedDate.getMonth()+1}-{updatedDate.getFullYear()}</Tag>
+                          <Box fontSize='1.1em' color='orange.500' fontWeight='bold'>{`£${offer_to_buy}`}</Box>
+                        </Flex>
+                      )
+                    }
+                      )}
+                  </AccordionPanel>
+                </AccordionItem>
+              </Accordion>
             </>
             }
             <Divider mt={5}/>
