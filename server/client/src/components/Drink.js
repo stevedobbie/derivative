@@ -49,6 +49,7 @@ const Drink = () => {
   const [ tradeInfo, setTradeInfo ] = useState([])
   const [ tradeMsg, setTradeMsg ] = useState('')
   const [ price, setPrice ] = useState('')
+  const [ toggle, setToggle ] = useState(true)
   
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -80,8 +81,12 @@ const Drink = () => {
       }
       getProfile()
     }
+
+    // force re-render (needed to update page after posting trades)
+    setToggle(!toggle) // *** DOESN'T WORK
   }
 
+  // call API on page load
   useEffect(() => {
     getData()
   }, [])
@@ -152,21 +157,21 @@ const Drink = () => {
   const handleChange = (e) => {
     
     if (tradeInfo.length && top3Bids && top3Offers && price) {
-      
+
       // logic to submit new bid, update offer or complete transaction depending on value of input
-      if(e < top3Offers[0].offer_to_sell && tradeInfo[0] === 'buy') {
+      if(parseFloat(e) < top3Offers[0].offer_to_sell && tradeInfo[0] === 'buy') {
         // console.log('submit new offer to buy')
         setTradeMsg('Update or submit new offer to buy')
       }
-      if(e >= top3Offers[0].offer_to_sell && tradeInfo[0] === 'buy') {
+      if(parseFloat(e) >= top3Offers[0].offer_to_sell && tradeInfo[0] === 'buy') {
         // console.log(`Complete trade at best price - £${top3Offers[0].offer_to_sell}`)
         setTradeMsg(`Complete trade at best price: £${top3Offers[0].offer_to_sell}`)
       } 
-      if (e > top3Bids[2].offer_to_buy && tradeInfo[0] === 'sell') {
+      if (parseFloat(e) > top3Bids[2].offer_to_buy && tradeInfo[0] === 'sell') {
         // console.log('update offer to sell')
         setTradeMsg('Update offer to sell')
       }
-      if (e <= top3Bids[2].offer_to_buy && tradeInfo[0] === 'sell') {
+      if (parseFloat(e) <= top3Bids[2].offer_to_buy && tradeInfo[0] === 'sell') {
         // console.log(`Complete trade at best price - £${top3Bids[2].offer_to_buy}`)
         setTradeMsg(`Complete trade at best price: £${top3Bids[2].offer_to_buy}`)
       }
@@ -220,6 +225,7 @@ const Drink = () => {
     
     // if user has no bids, post a new one
     if (!existingBids.length) {
+      console.log('I will post a new bid')
       if (userAuthenticated) {
         const postBid = async () => {
           try {
@@ -229,7 +235,8 @@ const Drink = () => {
               }
             }
             const input = {
-              offer_to_buy: priceToUpdate
+              offer_to_buy: priceToUpdate,
+              drink: drinkId
             }
             const { data } = await axios.post(`/api/bids/`, input, headers)
             console.log('Bid has been successfully created')
@@ -241,21 +248,152 @@ const Drink = () => {
         postBid()
       }
     }
-    
+    onClose()
     // call APIs again - to retrieve updated profile and drink info
     getData()
+    
   }
 
+  // this function updates the offer - a user must have an existing measure
   const updateOffer = () => {
+    console.log('I will update an existing offer to sell')
+    const priceToUpdate = parseFloat(price)
+
+    // check if user has a measure for this drink
+    const existingOffers = profile[0].measures.filter(measure => measure.drink === parseInt(drinkId))
+    // if they have an existing bid, update it
+    if (existingOffers.length) {
+      console.log('I will update an existing bid')
+      const measureId = existingOffers[0].id
+      
+      // update bid
+      if (userAuthenticated) {
+        const updateOffer = async () => {
+          try {
+            const headers = {
+              headers: {
+                Authorization: `Bearer ${getTokenFromLocalStorage()}`
+              }
+            }
+            const input = {
+              offer_to_sell: priceToUpdate
+            }
+            const { data } = await axios.put(`/api/measures/${measureId}/`, input, headers)
+            console.log('Offer to sell has been updated successfully')
+            console.log(data)
+          } catch (error) {
+            console.log(error)
+          }
+        }
+        updateOffer()
+      }
+      
+    } 
+    onClose()
+    // call APIs again - to retrieve updated profile and drink info *** THIS DOESN'T WORK
+    getData()
+    setProfile([...profile])
+  }
+
+  // this function completes a buy trade
+  const completeBuyTrade = () => {
+
+    const priceToUpdate = parseFloat(price)
+
+    // update logged in user profile
+    if (userAuthenticated && profile.length) {
+      const userToUpdate = profile[0].id
+      const newAccountBalance = profile[0].account_balance -= priceToUpdate
+      const newCostAsBuyer = profile[0].cost_as_buyer += priceToUpdate
+
+      const updateLoggedInUser = async () => {
+        try {
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${getTokenFromLocalStorage()}`
+            }
+          }
+          const input = {
+            account_balance: newAccountBalance,
+            cost_as_buyer: newCostAsBuyer
+          }
+          const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
+          console.log('User has been updated successfully')
+          console.log(data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      updateLoggedInUser()
+    }
+
+    // update current owner of the measure
+    if (userAuthenticated && profile.length) {
+      const userToUpdate = top3Offers[0].owner.id
+      const newAccountBalance = top3Offers[0].owner.account_balance += priceToUpdate
+      const newCostAsBuyer = top3Offers[0].owner.income_as_seller += priceToUpdate
+
+      const updateCurrentOwner = async () => {
+        try {
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${getTokenFromLocalStorage()}`
+            }
+          }
+          const input = {
+            account_balance: newAccountBalance,
+            cost_as_buyer: newCostAsBuyer
+          }
+          const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
+          console.log('User has been updated successfully')
+          console.log(data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      updateCurrentOwner()
+    }
     
+    // update measure to reflect new owner and set offer_to_sell to 99.99
+    if (userAuthenticated) {
+      const newOwner = profile[0].id
+      const newOfferToSell = 99.99
+      const measureToUpdate = top3Offers[0].id
+
+      const updateCurrentOwner = async () => {
+        try {
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${getTokenFromLocalStorage()}`
+            }
+          }
+          const input = {
+            offer_to_sell: newOfferToSell,
+            owner: newOwner
+          }
+          const { data } = await axios.put(`/api/measures/${measureToUpdate}/`, input, headers)
+          console.log('User has been updated successfully')
+          console.log(data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      updateCurrentOwner()
+    }
+
+    // *** HOW DO WE TRIGGER A RE-RENDER
+
   }
 
   // trading logic
   const handleSubmit = (e) => {
     // logic to make the trade or submit a bid / offer
     tradeMsg === 'Update or submit new offer to buy' && submitNewBid(e)
+    tradeMsg === 'Update offer to sell' && updateOffer(e)
+    tradeMsg === 'Complete trade at best price: £4.95' && completeBuyTrade(e)
   }
 
+  // this filters for the logged in user's owned measures bids for each drink
   const ownedMeasuresOrBids = (arr) => {
     return arr.filter(item => item.drink === parseInt(drinkId))
   }
@@ -522,7 +660,7 @@ const Drink = () => {
                 <Button variant='outline' mt={5} mr={3} onClick={onClose}>
                   Cancel
                 </Button>
-                <Button colorScheme='purple' mt={5} onClick={handleSubmit} onMouseDown={onClose}>
+                <Button colorScheme='purple' mt={5} onClick={handleSubmit}>
                   Submit
                 </Button>
               </Flex>
