@@ -30,9 +30,9 @@ function App() {
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
             <Route path='drinks/:drinkId' element={<Drink 
-              appendedDrinks={appendedDrinks} 
-              orderedBids={orderedBids}
-              orderedOffers={orderedOffers}
+              // appendedDrinks={appendedDrinks} 
+              // orderedBids={orderedBids}
+              // orderedOffers={orderedOffers}
               />} />
           </Routes>
         </BrowserRouter>

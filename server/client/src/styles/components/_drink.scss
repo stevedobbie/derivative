@@ -58,10 +58,19 @@
   box-shadow: 0 0 1rem 0.1rem grey;
   border-radius: 10px;
   bottom: 2em;
-  padding: 1.25em;
+  padding: 0.8em;
 }
 
 #progress-label{
   font-size: 16px;
   line-height: 15px;
+}
+
+#progress-footer{
+  font-size: 0.75rem;
+}
+
+#bid-0, #bid-1, #offer-1, #offer-2 {
+  background: lightgrey;
+  color: #555555;
 }
