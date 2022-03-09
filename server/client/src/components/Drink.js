@@ -277,6 +277,7 @@ const Drink = () => {
           isOpen={isOpen}
           placement='right'
           onClose={onClose}
+          size='sm'
           // finalFocusRef={btnRef}
         >
           <DrawerOverlay />

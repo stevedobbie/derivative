@@ -7,6 +7,7 @@ from rest_framework import status # Response
 from rest_framework.response import Response # Response
 from rest_framework.exceptions import PermissionDenied, NotFound # Exceptions
 from .serializers.common import UserSerializer # Serializers
+from .serializers.populated import PopulatedUserSerializer
 from datetime import datetime, timedelta # Time imports for JWT
 from rest_framework.permissions import IsAuthenticated
 import jwt 
@@ -64,7 +65,7 @@ class ProfileView(APIView):
     def get(self, request):
         try:
             user = User.objects.get(pk=request.user.id)
-            serialized_user = UserSerializer(user)
+            serialized_user = PopulatedUserSerializer(user)
             return Response(serialized_user.data, status=status.HTTP_200_OK)
         except User.DoesNotExist:
             raise NotFound(detail="User not found") 
