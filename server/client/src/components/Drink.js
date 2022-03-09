@@ -41,8 +41,13 @@ const Drink = () => {
   const [ profile, setProfile ] = useState([])
   const [ tradeInfo, setTradeInfo ] = useState([])
   const [ tradeMsg, setTradeMsg ] = useState('')
+  const [ price, setPrice ] = useState('')
   
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const getData = () => {
+    
+  }
 
 
   useEffect(() => {
@@ -127,23 +132,25 @@ const Drink = () => {
     const selectedPrice = e.currentTarget.value
     const selectedType = e.currentTarget.name
     setTradeInfo([selectedType, selectedPrice])
+    setPrice(e.currentTarget.value)
     if(e.currentTarget.value >= top3Offers[0].offer_to_sell && e.currentTarget.name === 'buy'){
       setTradeMsg(`Complete trade at best price: £${top3Offers[0].offer_to_sell}`)
     }
     if(e.currentTarget.value <= top3Bids[2].offer_to_buy && e.currentTarget.name === 'sell'){
       setTradeMsg(`Complete trade at best price: £${top3Bids[2].offer_to_buy}`)
     }
+    
   }
 
   // logic to provide message on trade type before clicking submit
   const handleChange = (e) => {
     
-    if (tradeInfo.length && top3Bids && top3Offers) {
+    if (tradeInfo.length && top3Bids && top3Offers && price) {
       
       // logic to submit new bid, update offer or complete transaction depending on value of input
       if(e < top3Offers[0].offer_to_sell && tradeInfo[0] === 'buy') {
         // console.log('submit new offer to buy')
-        setTradeMsg('Submit new offer to buy')
+        setTradeMsg('Update or submit new offer to buy')
       }
       if(e >= top3Offers[0].offer_to_sell && tradeInfo[0] === 'buy') {
         // console.log(`Complete trade at best price - £${top3Offers[0].offer_to_sell}`)
@@ -157,11 +164,64 @@ const Drink = () => {
         // console.log(`Complete trade at best price - £${top3Bids[2].offer_to_buy}`)
         setTradeMsg(`Complete trade at best price: £${top3Bids[2].offer_to_buy}`)
       }
+      setPrice(e)
     }
   }
 
-  const submitNewBid = () => {
 
+  
+
+
+
+
+
+  // this function submits a new bid (or updates an existing one)
+  const submitNewBid = (e) => {
+    
+    console.log('I will update an existing bid or submit a new bid')
+    
+    // check if user has a bid for this drink
+    const existingBids = profile[0].bids.filter(bid => bid.drink === parseInt(drinkId))
+    // if they have an existing bid, update it
+    if (existingBids.length) {
+      console.log('I will update an existing bid')
+      const bidId = existingBids[0].id
+      const priceToUpdate = parseFloat(price)
+
+      // update bid
+      if (userAuthenticated) {
+        const updateBid = async () => {
+          try {
+            const headers = {
+              headers: {
+                Authorization: `Bearer ${getTokenFromLocalStorage()}`
+              }
+            }
+            const input = {
+              offer_to_buy: priceToUpdate
+            }
+            const { data } = await axios.put(`/api/bids/${bidId}/`, input, headers)
+            console.log('Bid has been updated successfully')
+            console.log(data)
+          } catch (error) {
+            console.log(error)
+          }
+        }
+        updateBid()
+      }
+
+      // call APIs again - to retrieve updated profile and drink info
+
+      
+
+
+
+
+
+
+    } 
+    
+    // if user has no bids, post a new one
   }
 
   const updateOffer = () => {
@@ -171,7 +231,7 @@ const Drink = () => {
   // trading logic
   const handleSubmit = (e) => {
     // logic to make the trade or submit a bid / offer
-    
+    tradeMsg === 'Update or submit new offer to buy' && submitNewBid(e)
   }
 
 
@@ -385,7 +445,7 @@ const Drink = () => {
                 <Button variant='outline' mt={5} mr={3} onClick={onClose}>
                   Cancel
                 </Button>
-                <Button colorScheme='purple' mt={5} onClick={handleSubmit}>
+                <Button colorScheme='purple' mt={5} onClick={handleSubmit} onMouseDown={onClose}>
                   Submit
                 </Button>
               </Flex>
