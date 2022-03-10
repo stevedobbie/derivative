@@ -52,6 +52,8 @@ const Drink = () => {
   const [ toggle, setToggle ] = useState(0)
   const [ toggleTwo, setToggleTwo ] = useState(0)
   
+  const [ tradeError, setTradeError ] = useState('')
+
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const getData = () => {
@@ -156,6 +158,16 @@ const Drink = () => {
       setTradeMsg(`Complete sell trade at best price: £${top3Bids[2].offer_to_buy}`)
     }
     
+    const filteredMeasures = profile[0].measures.filter(measure => measure.drink === parseInt(drinkId))
+    // console.log(filteredMeasures.length)
+    
+    if(filteredMeasures.length === 0 && e.currentTarget.name === 'sell'){
+      setTradeError(`You don't have any measures to sell`)
+    }
+    if(filteredMeasures.length && e.currentTarget.name === 'sell'){
+      setTradeError(null)
+    }
+    
   }
 
   // logic to provide message on trade type before clicking submit
@@ -180,6 +192,16 @@ const Drink = () => {
         // console.log(`Complete trade at best price - £${top3Bids[2].offer_to_buy}`)
         setTradeMsg(`Complete sell trade at best price: £${top3Bids[2].offer_to_buy}`)
       }
+      const parsedE = parseFloat(e)
+      const accBalance = parseFloat(parseFloat(profile[0].account_balance).toFixed(2))
+      
+      if(parsedE > accBalance && tradeInfo[0] === 'buy'){
+        setTradeError(`You don't have enough funds to complete the transaction`)
+      }
+      if(parsedE <= accBalance && tradeInfo[0] === 'buy'){
+        setTradeError(null)
+      }
+
       setPrice(e)
     }
   }
@@ -551,8 +573,8 @@ const Drink = () => {
     // logic to make the trade or submit a bid / offer
     tradeMsg === 'Update or submit new offer to buy' && submitNewBid(e)
     tradeMsg === 'Update offer to sell' && updateOffer(e)
-    tradeMsg === `Complete buy trade at best price: £${top3Offers[0].offer_to_sell}` && completeBuyTrade(e)
-    tradeMsg === `Complete sell trade at best price: £${top3Bids[2].offer_to_buy}` && completeSellTrade(e)
+    tradeMsg === `Complete buy trade at best price: £${top3Offers[0].offer_to_sell}` && !tradeError && completeBuyTrade(e)
+    tradeMsg === `Complete sell trade at best price: £${top3Bids[2].offer_to_buy}` && !tradeError && completeSellTrade(e)
   }
 
   // this filters for the logged in user's owned measures bids for each drink
@@ -836,15 +858,24 @@ const Drink = () => {
                     <span>{tradeMsg}</span>
                   }
                 </Flex>
+                {tradeError && tradeInfo[0] == 'sell' &&
+                    <span id='trade-error'>{tradeError}</span>
+                }
               </Flex>
               <Divider mt={5} />
               <Flex justifyContent='flex-end'>
-                <Button variant='outline' mt={5} mr={3} onClick={onClose}>
+                <Button variant='outline' mt={5} mr={3} onClick={(() => {onClose(), setTradeError(null)})}>
                   Cancel
                 </Button>
+                {tradeError ?
+                <Button colorScheme='purple' mt={5} onClick={handleSubmit} isDisabled>
+                  Submit
+                </Button>
+                :
                 <Button colorScheme='purple' mt={5} onClick={handleSubmit}>
                   Submit
                 </Button>
+                }
               </Flex>
             </DrawerBody>
           </DrawerContent>

@@ -1,5 +1,5 @@
 #hero-drink{
-  z-index: 2;
+  z-index: 0;
   font-family: 'Neonderthaw', cursive;
   border: 5px solid white; 
   border-radius: 20px;
@@ -43,6 +43,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% auto;
+  z-index: 1;
 }
 
 #bar-edge-div{
@@ -121,4 +122,10 @@
 
 #loss{
   color: #C53030;
+}
+
+#trade-error{
+  margin-top: 2rem;
+  color: #C53030;
+  font-weight: bold;
 }
