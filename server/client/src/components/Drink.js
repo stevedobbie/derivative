@@ -49,7 +49,7 @@ const Drink = () => {
   const [ tradeInfo, setTradeInfo ] = useState([])
   const [ tradeMsg, setTradeMsg ] = useState('')
   const [ price, setPrice ] = useState('')
-  const [ toggle, setToggle ] = useState(true)
+  const [ toggle, setToggle ] = useState(0)
   
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -81,10 +81,14 @@ const Drink = () => {
       }
       getProfile()
     }
-
-    // force re-render (needed to update page after posting trades)
-    setToggle(!toggle) // *** DOESN'T WORK
+    
   }
+
+  // call API on change to toggle - toggle changes after we put/post info to database
+  useEffect(() => {
+    toggle === 1 && getData()
+    setToggle(0)
+  }, [toggle])
 
   // call API on page load
   useEffect(() => {
@@ -214,6 +218,7 @@ const Drink = () => {
             const { data } = await axios.put(`/api/bids/${bidId}/`, input, headers)
             console.log('Bid has been updated successfully')
             console.log(data)
+            setToggle(1) // toggle to call APIs again - only triggered once PUT has been completed
           } catch (error) {
             console.log(error)
           }
@@ -241,6 +246,7 @@ const Drink = () => {
             const { data } = await axios.post(`/api/bids/`, input, headers)
             console.log('Bid has been successfully created')
             console.log(data)
+            setToggle(1) // toggle to call APIs again - only triggered once POST has been completed
           } catch (error) {
             console.log(error)
           }
@@ -249,8 +255,6 @@ const Drink = () => {
       }
     }
     onClose()
-    // call APIs again - to retrieve updated profile and drink info
-    getData()
     
   }
 
@@ -261,9 +265,9 @@ const Drink = () => {
 
     // check if user has a measure for this drink
     const existingOffers = profile[0].measures.filter(measure => measure.drink === parseInt(drinkId))
-    // if they have an existing bid, update it
+    // if they have an existing measure, update it
     if (existingOffers.length) {
-      console.log('I will update an existing bid')
+      console.log('I will update an existing offer to sell')
       const measureId = existingOffers[0].id
       
       // update bid
@@ -281,6 +285,7 @@ const Drink = () => {
             const { data } = await axios.put(`/api/measures/${measureId}/`, input, headers)
             console.log('Offer to sell has been updated successfully')
             console.log(data)
+            setToggle(1) // toggle to call APIs again - only triggered once PUT has been completed
           } catch (error) {
             console.log(error)
           }
@@ -290,9 +295,6 @@ const Drink = () => {
       
     } 
     onClose()
-    // call APIs again - to retrieve updated profile and drink info *** THIS DOESN'T WORK
-    getData()
-    setProfile([...profile])
   }
 
   // this function completes a buy trade
@@ -302,6 +304,7 @@ const Drink = () => {
     if (userAuthenticated) {
       
       const priceToUpdate = parseFloat(price)
+      let orchestration = 0
       
       // update logged in user (buyer)
       const updateLoggedInUser = async () => {
@@ -327,6 +330,7 @@ const Drink = () => {
           const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
           console.log('User has been updated successfully')
           console.log(data)
+          orchestration === 2 ? setToggle(1) : orchestration += 1
         } catch (error) {
           console.log(error)
         }
@@ -358,6 +362,7 @@ const Drink = () => {
           const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
           console.log('User has been updated successfully')
           console.log(data)
+          orchestration === 2 ? setToggle(1) : orchestration += 1
         } catch (error) {
           console.log(error)
         }
@@ -382,6 +387,7 @@ const Drink = () => {
           const { data } = await axios.put(`/api/measures/${measureToUpdate}/`, input, headers)
           console.log('User has been updated successfully')
           console.log(data)
+          orchestration === 2 ? setToggle(1) : orchestration += 1
         } catch (error) {
           console.log(error)
         }
@@ -391,8 +397,6 @@ const Drink = () => {
       updateCurrentOwner()
       exchangeMeasure()
     }
-
-    // *** HOW DO WE TRIGGER A RE-RENDER
 
     onClose()
   }
