@@ -300,89 +300,95 @@ const Drink = () => {
 
     const priceToUpdate = parseFloat(price)
 
+    // console.log('do I end up here?')
+
     // update logged in user profile
-    if (userAuthenticated && profile.length) {
+    if (userAuthenticated) {
       const userToUpdate = profile[0].id
       const newAccountBalance = profile[0].account_balance -= priceToUpdate
       const newCostAsBuyer = profile[0].cost_as_buyer += priceToUpdate
 
-      const updateLoggedInUser = async () => {
-        try {
-          const headers = {
-            headers: {
-              Authorization: `Bearer ${getTokenFromLocalStorage()}`
-            }
-          }
-          const input = {
-            account_balance: newAccountBalance,
-            cost_as_buyer: newCostAsBuyer
-          }
-          const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
-          console.log('User has been updated successfully')
-          console.log(data)
-        } catch (error) {
-          console.log(error)
-        }
-      }
-      updateLoggedInUser()
-    }
+      console.log(newAccountBalance)
+      console.log(newCostAsBuyer)
+    
+    //   const updateLoggedInUser = async () => {
+    //     try {
+    //       const headers = {
+    //         headers: {
+    //           Authorization: `Bearer ${getTokenFromLocalStorage()}`
+    //         }
+    //       }
+    //       const input = {
+    //         account_balance: newAccountBalance,
+    //         cost_as_buyer: newCostAsBuyer
+    //       }
+    //       const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
+    //       console.log('User has been updated successfully')
+    //       console.log(data)
+    //     } catch (error) {
+    //       console.log(error)
+    //     }
+    //   }
+    //   updateLoggedInUser()
+    // }
 
-    // update current owner of the measure
-    if (userAuthenticated && profile.length) {
-      const userToUpdate = top3Offers[0].owner.id
-      const newAccountBalance = top3Offers[0].owner.account_balance += priceToUpdate
-      const newCostAsBuyer = top3Offers[0].owner.income_as_seller += priceToUpdate
+    // // update current owner of the measure
+    // if (userAuthenticated) {
+    //   const userToUpdate = top3Offers[0].owner.id
+    //   const newAccountBalance = top3Offers[0].owner.account_balance += priceToUpdate
+    //   const newCostAsBuyer = top3Offers[0].owner.income_as_seller += priceToUpdate
 
-      const updateCurrentOwner = async () => {
-        try {
-          const headers = {
-            headers: {
-              Authorization: `Bearer ${getTokenFromLocalStorage()}`
-            }
-          }
-          const input = {
-            account_balance: newAccountBalance,
-            cost_as_buyer: newCostAsBuyer
-          }
-          const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
-          console.log('User has been updated successfully')
-          console.log(data)
-        } catch (error) {
-          console.log(error)
-        }
-      }
-      updateCurrentOwner()
+    //   const updateCurrentOwner = async () => {
+    //     try {
+    //       const headers = {
+    //         headers: {
+    //           Authorization: `Bearer ${getTokenFromLocalStorage()}`
+    //         }
+    //       }
+    //       const input = {
+    //         account_balance: newAccountBalance,
+    //         cost_as_buyer: newCostAsBuyer
+    //       }
+    //       const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
+    //       console.log('User has been updated successfully')
+    //       console.log(data)
+    //     } catch (error) {
+    //       console.log(error)
+    //     }
+    //   }
+    //   updateCurrentOwner()
     }
     
-    // update measure to reflect new owner and set offer_to_sell to 99.99
-    if (userAuthenticated) {
-      const newOwner = profile[0].id
-      const newOfferToSell = 99.99
-      const measureToUpdate = top3Offers[0].id
+    // // update measure to reflect new owner and set offer_to_sell to 99.99
+    // if (userAuthenticated) {
+    //   const newOwner = profile[0].id
+    //   const newOfferToSell = 99.99
+    //   const measureToUpdate = top3Offers[0].id
 
-      const updateCurrentOwner = async () => {
-        try {
-          const headers = {
-            headers: {
-              Authorization: `Bearer ${getTokenFromLocalStorage()}`
-            }
-          }
-          const input = {
-            offer_to_sell: newOfferToSell,
-            owner: newOwner
-          }
-          const { data } = await axios.put(`/api/measures/${measureToUpdate}/`, input, headers)
-          console.log('User has been updated successfully')
-          console.log(data)
-        } catch (error) {
-          console.log(error)
-        }
-      }
-      updateCurrentOwner()
-    }
+    //   const updateCurrentOwner = async () => {
+    //     try {
+    //       const headers = {
+    //         headers: {
+    //           Authorization: `Bearer ${getTokenFromLocalStorage()}`
+    //         }
+    //       }
+    //       const input = {
+    //         offer_to_sell: newOfferToSell,
+    //         owner: newOwner
+    //       }
+    //       const { data } = await axios.put(`/api/measures/${measureToUpdate}/`, input, headers)
+    //       console.log('User has been updated successfully')
+    //       console.log(data)
+    //     } catch (error) {
+    //       console.log(error)
+    //     }
+    //   }
+    //   updateCurrentOwner()
+    // }
 
     // *** HOW DO WE TRIGGER A RE-RENDER
 
+    onClose()
   }
 
   // trading logic
@@ -390,7 +396,7 @@ const Drink = () => {
     // logic to make the trade or submit a bid / offer
     tradeMsg === 'Update or submit new offer to buy' && submitNewBid(e)
     tradeMsg === 'Update offer to sell' && updateOffer(e)
-    tradeMsg === 'Complete trade at best price: £4.95' && completeBuyTrade(e)
+    tradeMsg === `Complete trade at best price: £${top3Offers[0].offer_to_sell}` && completeBuyTrade(e)
   }
 
   // this filters for the logged in user's owned measures bids for each drink
@@ -570,7 +576,7 @@ const Drink = () => {
                 You own the following
                 <span id='drink-text'> {drink[0].name}...</span>
               </DrawerHeader>
-              <Accordion allowMultiple defaultIndex={[0]} ml={2}>
+              <Accordion allowToggle ml={2}>
                 <AccordionItem>
                   <AccordionButton bg='gray.100'>
                     <Box flex='1' textAlign='left'>
