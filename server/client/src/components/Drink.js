@@ -560,7 +560,18 @@ const Drink = () => {
     return arr.filter(item => item.drink === parseInt(drinkId))
   }
 
+  // this function parses strings into 2 digit numbers
+  const parseNums = (string) => {
+    return parseFloat(parseFloat(string).toFixed(2))
+  }
   
+  // this function calculates profit for a user object
+  const profit = (userObj) => {
+    // if ( typeOf userObj.loaded_credit || )
+    const userProfit = parseNums((parseNums(userObj.income_as_seller) - parseNums(userObj.cost_as_buyer)))
+    return userProfit < 0 ? [`-£${Math.abs(userProfit)}`, 'loss'] : [`£${userProfit}`, 'profit'] 
+  }
+
 
   return (
     
@@ -637,7 +648,7 @@ const Drink = () => {
                         <Flex flexDirection='column'>
                           <div >{offer_to_buy}</div>
                           <div className='number-units'>
-                            {/* {`${number_units} ${pluraliseMeasureNames(minOffer.measure_unit_name, maxBid.number_units)}`} */}
+                            {`${number_units} ${pluraliseMeasureNames(top3Offers[0].measure_unit_name, number_units)}`}
                           </div>
                         </Flex>
                       </Button>
@@ -665,7 +676,7 @@ const Drink = () => {
                   <Flex flexDirection='row'>
                   {top3Offers &&
                   top3Offers.map((offer, index) => {
-                    const { id, offer_to_sell, number_units } = offer
+                    const { id, offer_to_sell, number_units, measure_unit_name } = offer
                     return (
                       
                       <Button 
@@ -682,7 +693,7 @@ const Drink = () => {
                         <Flex flexDirection='column'>
                           <div id='offer-price'>{offer_to_sell}</div>
                           <div className='number-units'>
-                            {/* {`${number_units} ${pluraliseMeasureNames(minOffer.measure_unit_name, maxBid.number_units)}`} */}
+                            {`${number_units} ${pluraliseMeasureNames(measure_unit_name, number_units)}`}
                           </div>
                         </Flex>
                       </Button>
@@ -713,6 +724,16 @@ const Drink = () => {
                   <Flex flexDirection='column' alignItems='center'>
                     <span className='balance-text'>Balance</span>
                     <span className='balance-figure'>{`£${profile[0].account_balance}`}</span>
+                  </Flex>
+                </Box>
+                <Box id='profit-name' className='user-info'>
+                  <Flex flexDirection='column' alignItems='center'>
+                    <span className='balance-text'>Profit</span>
+                    {profit(profile[0])[1] === 'loss' ?
+                      <span className='balance-figure' id='loss'>{profit(profile[0])[0]}</span>
+                    :
+                      <span className='balance-figure' id='profit'>{profit(profile[0])[0]}</span>
+                    }
                   </Flex>
                 </Box>
                 <Box id='account-measures' className='user-info'>
