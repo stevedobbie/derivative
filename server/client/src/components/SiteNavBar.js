@@ -43,7 +43,7 @@ const SiteNavBar = () => {
                   My profile
                 </Button>
               </Link>
-              <Link className='nav-logout' to='logout' mr={10} onClick={handleLogOut}>
+              <Link className='nav-logout' to='/' mr={10} onClick={handleLogOut}>
                 <Button className='nav-button' variant="ghost" aria-label="Home" my={5} w="100%" fontSize='1.25em'>
                   Logout
                 </Button>

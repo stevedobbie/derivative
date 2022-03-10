@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { pluraliseMeasureNames } from './utils/pluraliseMeasureNames'
 import { 
   Center, 
@@ -56,6 +56,8 @@ const Drink = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
+  const navigate = useNavigate()
+
   const getData = () => {
     const getDrinkData = async () => {
       try {
@@ -96,6 +98,11 @@ const Drink = () => {
   // call API on page load
   useEffect(() => {
     getData()
+  }, [])
+
+  // redirect to login if user is not logged in 
+  useEffect(() => {
+    userAuthenticated() === false && navigate('/login')
   }, [])
   
   useEffect(() => {

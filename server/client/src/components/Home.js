@@ -198,6 +198,7 @@ const Home = ( { appendedDrinks, setAppendedDrinks, orderedBids, setOrderedBids,
           </Flex>
         </Center>
       </div>
+      <div id='bar-edge-div'></div>
     </div>
   )
 
