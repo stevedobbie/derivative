@@ -307,7 +307,9 @@ const Drink = () => {
       const updateLoggedInUser = async () => {
         
         const userToUpdate = profile[0].id
-        const newAccountBalance = profile[0].account_balance -= priceToUpdate
+
+        let parsedBalance = parseFloat(parseFloat(profile[0].account_balance).toFixed(2))
+        const newAccountBalance = parsedBalance -= priceToUpdate
       
         let parsedCost = parseFloat(parseFloat(profile[0].cost_as_buyer).toFixed(2))
         const newCostAsBuyer = parsedCost += priceToUpdate
@@ -334,10 +336,14 @@ const Drink = () => {
       const updateCurrentOwner = async () => {
         
         const userToUpdate = top3Offers[0].owner.id
-        const newAccountBalance = top3Offers[0].owner.account_balance += priceToUpdate
+        
+        let parsedBalance = parseFloat(parseFloat(top3Offers[0].owner.account_balance).toFixed(2))
+        const newAccountBalance = parsedBalance += priceToUpdate
+        // console.log(newAccountBalance, typeof newAccountBalance)
 
         let parsedIncome = parseFloat(parseFloat(top3Offers[0].owner.income_as_seller).toFixed(2))
         const newIncomeAsSeller = parsedIncome += priceToUpdate
+        // console.log(newIncomeAsSeller, typeof newIncomeAsSeller)
 
         try {
           const headers = {
