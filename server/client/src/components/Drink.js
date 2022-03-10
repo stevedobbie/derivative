@@ -149,10 +149,10 @@ const Drink = () => {
     setTradeInfo([selectedType, selectedPrice])
     setPrice(e.currentTarget.value)
     if(e.currentTarget.value >= top3Offers[0].offer_to_sell && e.currentTarget.name === 'buy'){
-      setTradeMsg(`Complete trade at best price: £${top3Offers[0].offer_to_sell}`)
+      setTradeMsg(`Complete buy trade at best price: £${top3Offers[0].offer_to_sell}`)
     }
     if(e.currentTarget.value <= top3Bids[2].offer_to_buy && e.currentTarget.name === 'sell'){
-      setTradeMsg(`Complete trade at best price: £${top3Bids[2].offer_to_buy}`)
+      setTradeMsg(`Complete sell trade at best price: £${top3Bids[2].offer_to_buy}`)
     }
     
   }
@@ -169,7 +169,7 @@ const Drink = () => {
       }
       if(parseFloat(e) >= top3Offers[0].offer_to_sell && tradeInfo[0] === 'buy') {
         // console.log(`Complete trade at best price - £${top3Offers[0].offer_to_sell}`)
-        setTradeMsg(`Complete trade at best price: £${top3Offers[0].offer_to_sell}`)
+        setTradeMsg(`Complete buy trade at best price: £${top3Offers[0].offer_to_sell}`)
       } 
       if (parseFloat(e) > top3Bids[2].offer_to_buy && tradeInfo[0] === 'sell') {
         // console.log('update offer to sell')
@@ -177,7 +177,7 @@ const Drink = () => {
       }
       if (parseFloat(e) <= top3Bids[2].offer_to_buy && tradeInfo[0] === 'sell') {
         // console.log(`Complete trade at best price - £${top3Bids[2].offer_to_buy}`)
-        setTradeMsg(`Complete trade at best price: £${top3Bids[2].offer_to_buy}`)
+        setTradeMsg(`Complete sell trade at best price: £${top3Bids[2].offer_to_buy}`)
       }
       setPrice(e)
     }
@@ -190,7 +190,7 @@ const Drink = () => {
 
 
 
-  // this function submits a new bid (or updates an existing one)
+  // *** this function submits a new bid (or updates an existing one)
   const submitNewBid = (e) => {
     
     console.log('I will update an existing bid or submit a new bid')
@@ -258,7 +258,7 @@ const Drink = () => {
     
   }
 
-  // this function updates the offer - a user must have an existing measure
+  // *** this function updates the offer - a user must have an existing measure
   const updateOffer = () => {
     console.log('I will update an existing offer to sell')
     const priceToUpdate = parseFloat(price)
@@ -297,13 +297,14 @@ const Drink = () => {
     onClose()
   }
 
-  // this function completes a buy trade
+  // *** this function completes a buy trade
   const completeBuyTrade = () => {
 
     // update logged in user profile
     if (userAuthenticated) {
       
       const priceToUpdate = parseFloat(price)
+      // console.log(priceToUpdate, typeof priceToUpdate)
       let orchestration = 0
       
       // update logged in user (buyer)
@@ -312,11 +313,15 @@ const Drink = () => {
         const userToUpdate = profile[0].id
 
         let parsedBalance = parseFloat(parseFloat(profile[0].account_balance).toFixed(2))
-        const newAccountBalance = parsedBalance -= priceToUpdate
+        const preAccountBalance = parsedBalance -= priceToUpdate
+        const newAccountBalance = parseFloat(preAccountBalance.toFixed(2))
+        // console.log(newAccountBalance, typeof newAccountBalance)
       
         let parsedCost = parseFloat(parseFloat(profile[0].cost_as_buyer).toFixed(2))
-        const newCostAsBuyer = parsedCost += priceToUpdate
-        
+        const preCostAsBuyer = parsedCost += priceToUpdate
+        const newCostAsBuyer = parseFloat(preCostAsBuyer.toFixed(2))
+        // console.log(newCostAsBuyer, typeof newCostAsBuyer)
+
         try {
           const headers = {
             headers: {
@@ -342,11 +347,13 @@ const Drink = () => {
         const userToUpdate = top3Offers[0].owner.id
         
         let parsedBalance = parseFloat(parseFloat(top3Offers[0].owner.account_balance).toFixed(2))
-        const newAccountBalance = parsedBalance += priceToUpdate
+        const preAccountBalance = parsedBalance += priceToUpdate
+        const newAccountBalance = parseFloat(preAccountBalance.toFixed(2))
         // console.log(newAccountBalance, typeof newAccountBalance)
 
         let parsedIncome = parseFloat(parseFloat(top3Offers[0].owner.income_as_seller).toFixed(2))
-        const newIncomeAsSeller = parsedIncome += priceToUpdate
+        const preIncomeAsSeller = parsedIncome += priceToUpdate
+        const newIncomeAsSeller = parseFloat(preIncomeAsSeller.toFixed(2))
         // console.log(newIncomeAsSeller, typeof newIncomeAsSeller)
 
         try {
@@ -401,12 +408,88 @@ const Drink = () => {
     onClose()
   }
 
+  // *** this funnction completes a sell trade
+  const completeSellTrade = () => {
+
+    const priceToUpdate = parseFloat(price)
+    let orc1 = 0 // this is to ensure the user profile is pulled first  
+    let orc2 = 0 // this is to trigger the toggle and rerender once all the requests are fulfilled
+
+    // update logged in user profile (seller)
+    if (userAuthenticated) {
+      
+      const updateLoggedInUser = async () => {
+        const userToUpdate = profile[0].id
+
+        let parsedBalance = parseFloat(parseFloat(profile[0].account_balance).toFixed(2))
+        const preAccountBalance = parsedBalance += priceToUpdate
+        const newAccountBalance = parseFloat(preAccountBalance.toFixed(2))
+        // console.log(newAccountBalance, typeof newAccountBalance)
+
+        let parsedIncome = parseFloat(parseFloat(profile[0].income_as_seller).toFixed(2))
+        const preIncomeAsSeller = parsedIncome += priceToUpdate
+        const newIncomeAsSeller = parseFloat(preIncomeAsSeller.toFixed(2))
+        // console.log(newIncomeAsSeller, typeof newIncomeAsSeller)
+
+        try {
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${getTokenFromLocalStorage()}`
+            }
+          }
+          const input = {
+            account_balance: newAccountBalance,
+            cost_as_buyer: newIncomeAsSeller
+          }
+          const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
+          console.log('User has been updated successfully')
+          console.log(data)
+          orc2 === 2 ? setToggle(1) : orc2 += 1
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      
+
+
+
+
+      // update current owner (buyer)
+      const updateCurrentOwner = async () => {
+
+        const userToUpdate = top3Bids[2].owner.id
+
+        let parsedBalance = parseFloat(parseFloat(profile[0].account_balance).toFixed(2))
+        const preAccountBalance = parsedBalance -= priceToUpdate
+        const newAccountBalance = parseFloat(preAccountBalance.toFixed(2))
+        // console.log(newAccountBalance, typeof newAccountBalance)
+
+        let parsedCost = parseFloat(parseFloat(profile[0].cost_as_buyer).toFixed(2))
+        const preCostAsBuyer = parsedCost += priceToUpdate
+        const newCostAsBuyer = parseFloat(preCostAsBuyer.toFixed(2))
+        // console.log(newCostAsBuyer, typeof newCostAsBuyer)
+
+
+      }
+
+      updateLoggedInUser()
+      // updateCurrentOwner()
+      // exchangeMeasure()
+
+    }
+    onClose()
+  }
+
+
+
+
   // trading logic
   const handleSubmit = (e) => {
     // logic to make the trade or submit a bid / offer
     tradeMsg === 'Update or submit new offer to buy' && submitNewBid(e)
     tradeMsg === 'Update offer to sell' && updateOffer(e)
-    tradeMsg === `Complete trade at best price: £${top3Offers[0].offer_to_sell}` && completeBuyTrade(e)
+    tradeMsg === `Complete buy trade at best price: £${top3Offers[0].offer_to_sell}` && completeBuyTrade(e)
+    tradeMsg === `Complete sell trade at best price: £${top3Bids[2].offer_to_buy}` && completeSellTrade(e)
   }
 
   // this filters for the logged in user's owned measures bids for each drink

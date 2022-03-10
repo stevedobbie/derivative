@@ -8,6 +8,7 @@ from django.db import IntegrityError
 # Models and serializers
 from .models import Bid
 from .serializers.common import BidSerializer
+from .serializers.populated import PopulatedBidSerializer
 
 # Permissions classes
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -18,7 +19,7 @@ class BidListView(APIView):
 
     def get(self, _request):
         bids = Bid.objects.all()
-        serialized_bids = BidSerializer(bids, many=True)
+        serialized_bids = PopulatedBidSerializer(bids, many=True)
         return Response(serialized_bids.data, status=status.HTTP_200_OK)
 
     def post(self, request):

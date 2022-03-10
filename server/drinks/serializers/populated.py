@@ -1,8 +1,8 @@
 from .common import DrinkSerializer
 from measures.serializers.populated import PopulatedMeasureSerializer
-from bids.serializers.common import BidSerializer
+from bids.serializers.populated import PopulatedBidSerializer
 
 # Serializers
 class PopulatedDrinkSerializer(DrinkSerializer):
     measures = PopulatedMeasureSerializer(many=True)
-    bids = BidSerializer(many=True)
+    bids = PopulatedBidSerializer(many=True)
