@@ -298,93 +298,93 @@ const Drink = () => {
   // this function completes a buy trade
   const completeBuyTrade = () => {
 
-    const priceToUpdate = parseFloat(price)
-
-    // console.log('do I end up here?')
-
     // update logged in user profile
     if (userAuthenticated) {
-      const userToUpdate = profile[0].id
-      const newAccountBalance = profile[0].account_balance -= priceToUpdate
-      const newCostAsBuyer = profile[0].cost_as_buyer += priceToUpdate
+      
+      const priceToUpdate = parseFloat(price)
+      
+      // update logged in user (buyer)
+      const updateLoggedInUser = async () => {
+        
+        const userToUpdate = profile[0].id
+        const newAccountBalance = profile[0].account_balance -= priceToUpdate
+      
+        let parsedCost = parseFloat(parseFloat(profile[0].cost_as_buyer).toFixed(2))
+        const newCostAsBuyer = parsedCost += priceToUpdate
+        
+        try {
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${getTokenFromLocalStorage()}`
+            }
+          }
+          const input = {
+            account_balance: newAccountBalance,
+            cost_as_buyer: newCostAsBuyer
+          }
+          const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
+          console.log('User has been updated successfully')
+          console.log(data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
 
-      console.log(newAccountBalance)
-      console.log(newCostAsBuyer)
-    
-    //   const updateLoggedInUser = async () => {
-    //     try {
-    //       const headers = {
-    //         headers: {
-    //           Authorization: `Bearer ${getTokenFromLocalStorage()}`
-    //         }
-    //       }
-    //       const input = {
-    //         account_balance: newAccountBalance,
-    //         cost_as_buyer: newCostAsBuyer
-    //       }
-    //       const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
-    //       console.log('User has been updated successfully')
-    //       console.log(data)
-    //     } catch (error) {
-    //       console.log(error)
-    //     }
-    //   }
-    //   updateLoggedInUser()
-    // }
+      // update current owner (seller)
+      const updateCurrentOwner = async () => {
+        
+        const userToUpdate = top3Offers[0].owner.id
+        const newAccountBalance = top3Offers[0].owner.account_balance += priceToUpdate
 
-    // // update current owner of the measure
-    // if (userAuthenticated) {
-    //   const userToUpdate = top3Offers[0].owner.id
-    //   const newAccountBalance = top3Offers[0].owner.account_balance += priceToUpdate
-    //   const newCostAsBuyer = top3Offers[0].owner.income_as_seller += priceToUpdate
+        let parsedIncome = parseFloat(parseFloat(top3Offers[0].owner.income_as_seller).toFixed(2))
+        const newIncomeAsSeller = parsedIncome += priceToUpdate
 
-    //   const updateCurrentOwner = async () => {
-    //     try {
-    //       const headers = {
-    //         headers: {
-    //           Authorization: `Bearer ${getTokenFromLocalStorage()}`
-    //         }
-    //       }
-    //       const input = {
-    //         account_balance: newAccountBalance,
-    //         cost_as_buyer: newCostAsBuyer
-    //       }
-    //       const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
-    //       console.log('User has been updated successfully')
-    //       console.log(data)
-    //     } catch (error) {
-    //       console.log(error)
-    //     }
-    //   }
-    //   updateCurrentOwner()
+        try {
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${getTokenFromLocalStorage()}`
+            }
+          }
+          const input = {
+            account_balance: newAccountBalance,
+            income_as_seller: newIncomeAsSeller
+          }
+          const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
+          console.log('User has been updated successfully')
+          console.log(data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      
+      // complete exchange to buyer and update offer_to_sell to 99.99
+      const exchangeMeasure = async () => {
+        const newOwner = profile[0].id
+        const newOfferToSell = 99.99
+        const measureToUpdate = top3Offers[0].id
+        
+        try {
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${getTokenFromLocalStorage()}`
+            }
+          }
+          const input = {
+            offer_to_sell: newOfferToSell,
+            owner: newOwner
+          }
+          const { data } = await axios.put(`/api/measures/${measureToUpdate}/`, input, headers)
+          console.log('User has been updated successfully')
+          console.log(data)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+      updateLoggedInUser()
+      updateCurrentOwner()
+      exchangeMeasure()
     }
-    
-    // // update measure to reflect new owner and set offer_to_sell to 99.99
-    // if (userAuthenticated) {
-    //   const newOwner = profile[0].id
-    //   const newOfferToSell = 99.99
-    //   const measureToUpdate = top3Offers[0].id
-
-    //   const updateCurrentOwner = async () => {
-    //     try {
-    //       const headers = {
-    //         headers: {
-    //           Authorization: `Bearer ${getTokenFromLocalStorage()}`
-    //         }
-    //       }
-    //       const input = {
-    //         offer_to_sell: newOfferToSell,
-    //         owner: newOwner
-    //       }
-    //       const { data } = await axios.put(`/api/measures/${measureToUpdate}/`, input, headers)
-    //       console.log('User has been updated successfully')
-    //       console.log(data)
-    //     } catch (error) {
-    //       console.log(error)
-    //     }
-    //   }
-    //   updateCurrentOwner()
-    // }
 
     // *** HOW DO WE TRIGGER A RE-RENDER
 
