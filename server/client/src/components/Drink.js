@@ -412,8 +412,8 @@ const Drink = () => {
   const completeSellTrade = () => {
 
     const priceToUpdate = parseFloat(price)
-    let orc1 = 0 // this is to ensure the user profile is pulled first  
-    let orc2 = 0 // this is to trigger the toggle and rerender once all the requests are fulfilled
+    let orchestration = 0 // this is to ensure the put requests complete before the delete request is triggered
+    let orchestrationTwo = 0 // this is to ensure updates complete before triggering the get requests
 
     // update logged in user profile (seller)
     if (userAuthenticated) {
@@ -444,37 +444,95 @@ const Drink = () => {
           const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
           console.log('User has been updated successfully')
           console.log(data)
-          orc2 === 2 ? setToggle(1) : orc2 += 1
+          orchestration === 2 ? orchestrationTwo += 1 : orchestration += 1
         } catch (error) {
           console.log(error)
         }
       }
-      
-
-
-
 
       // update current owner (buyer)
       const updateCurrentOwner = async () => {
 
         const userToUpdate = top3Bids[2].owner.id
 
-        let parsedBalance = parseFloat(parseFloat(profile[0].account_balance).toFixed(2))
+        let parsedBalance = parseFloat(parseFloat(top3Bids[2].owner.account_balance).toFixed(2))
         const preAccountBalance = parsedBalance -= priceToUpdate
         const newAccountBalance = parseFloat(preAccountBalance.toFixed(2))
         // console.log(newAccountBalance, typeof newAccountBalance)
 
-        let parsedCost = parseFloat(parseFloat(profile[0].cost_as_buyer).toFixed(2))
+        let parsedCost = parseFloat(parseFloat(top3Bids[2].owner.cost_as_buyer).toFixed(2))
         const preCostAsBuyer = parsedCost += priceToUpdate
         const newCostAsBuyer = parseFloat(preCostAsBuyer.toFixed(2))
         // console.log(newCostAsBuyer, typeof newCostAsBuyer)
 
+        try {
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${getTokenFromLocalStorage()}`
+            }
+          }
+          const input = {
+            account_balance: newAccountBalance,
+            cost_as_buyer: newCostAsBuyer
+          }
+          const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
+          console.log('User has been updated successfully')
+          console.log(data)
+          orchestration === 2 ? orchestrationTwo += 1 : orchestration += 1
+        } catch (error) {
+          console.log(error)
+        }
+      }
 
+      // complete exchange from seller to buyer
+      const exchangeMeasure = async () => {
+        const newOwner = top3Bids[2].owner.id
+        const newOfferToSell = 99.99
+        
+        // find a measure from the logged in user to transfer ownership to
+        const filteredMeasures = profile[0].measures.filter(measure => measure.drink === parseInt(drinkId))
+        const measureToUpdate = filteredMeasures[0].id
+        
+        try {
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${getTokenFromLocalStorage()}`
+            }
+          }
+          const input = {
+            offer_to_sell: newOfferToSell,
+            owner: newOwner
+          }
+          const { data } = await axios.put(`/api/measures/${measureToUpdate}/`, input, headers)
+          console.log('User has been updated successfully')
+          console.log(data)
+          orchestration === 2 ? orchestrationTwo += 1 : orchestration += 1
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+      // delete bid
+      const deleteBid = async () => {
+        
+        const bidToDelete = top3Bids[2].id
+
+        if (orchestrationTwo === 1) {
+          try {
+            const { data } = await axios.delete(`/api/bids/${bidToDelete}/`)
+            console.log('Bid has been deleted successfully')
+            console.log(data)
+            orchestration === 2 && orchestrationTwo === 1 && setToggle(1)
+          } catch (error) {
+            console.log(error)
+          }
+        }
       }
 
       updateLoggedInUser()
-      // updateCurrentOwner()
-      // exchangeMeasure()
+      updateCurrentOwner()
+      exchangeMeasure()
+      deleteBid()
 
     }
     onClose()
@@ -666,7 +724,6 @@ const Drink = () => {
                 </Box>
               </Flex>
               <DrawerHeader>
-                You own the following
                 <span id='drink-text'> {drink[0].name}...</span>
               </DrawerHeader>
               <Accordion allowToggle ml={2}>
