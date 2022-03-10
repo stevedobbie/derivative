@@ -50,6 +50,7 @@ const Drink = () => {
   const [ tradeMsg, setTradeMsg ] = useState('')
   const [ price, setPrice ] = useState('')
   const [ toggle, setToggle ] = useState(0)
+  const [ toggleTwo, setToggleTwo ] = useState(0)
   
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -412,8 +413,7 @@ const Drink = () => {
   const completeSellTrade = () => {
 
     const priceToUpdate = parseFloat(price)
-    let orchestration = 0 // this is to ensure the put requests complete before the delete request is triggered
-    let orchestrationTwo = 0 // this is to ensure updates complete before triggering the get requests
+    let orchestration = 0 // this is to ensure the put requests complete before the delete request is triggered by toggleTwo
 
     // update logged in user profile (seller)
     if (userAuthenticated) {
@@ -444,7 +444,7 @@ const Drink = () => {
           const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
           console.log('User has been updated successfully')
           console.log(data)
-          orchestration === 2 ? orchestrationTwo += 1 : orchestration += 1
+          orchestration === 2 ? setToggleTwo(1) : orchestration += 1
         } catch (error) {
           console.log(error)
         }
@@ -478,7 +478,7 @@ const Drink = () => {
           const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
           console.log('User has been updated successfully')
           console.log(data)
-          orchestration === 2 ? orchestrationTwo += 1 : orchestration += 1
+          orchestration === 2 ? setToggleTwo(1) : orchestration += 1
         } catch (error) {
           console.log(error)
         }
@@ -506,38 +506,43 @@ const Drink = () => {
           const { data } = await axios.put(`/api/measures/${measureToUpdate}/`, input, headers)
           console.log('User has been updated successfully')
           console.log(data)
-          orchestration === 2 ? orchestrationTwo += 1 : orchestration += 1
+          orchestration === 2 ? setToggleTwo(1) : orchestration += 1
         } catch (error) {
           console.log(error)
         }
       }
-
-      // delete bid
-      const deleteBid = async () => {
-        
-        const bidToDelete = top3Bids[2].id
-
-        if (orchestrationTwo === 1) {
-          try {
-            const { data } = await axios.delete(`/api/bids/${bidToDelete}/`)
-            console.log('Bid has been deleted successfully')
-            console.log(data)
-            orchestration === 2 && orchestrationTwo === 1 && setToggle(1)
-          } catch (error) {
-            console.log(error)
-          }
-        }
-      }
-
       updateLoggedInUser()
       updateCurrentOwner()
       exchangeMeasure()
-      deleteBid()
-
     }
     onClose()
   }
 
+  // delete bid - awaits on 
+  useEffect(() => {
+// delete bid
+    const deleteBid = async () => {
+          
+    const bidToDelete = top3Bids[2].id
+    if (toggleTwo === 1) {
+      try {
+        const headers = {
+          headers: {
+            Authorization: `Bearer ${getTokenFromLocalStorage()}`
+          }
+        }
+        const { data } = await axios.delete(`/api/bids/${bidToDelete}/`, headers)
+        console.log('Bid has been deleted successfully')
+        console.log(data)
+        setToggle(1)
+      } catch (error) {
+        console.log(error)
+      } 
+    } 
+  }
+  deleteBid()
+  setToggleTwo(0)
+}, [toggleTwo])
 
 
 
