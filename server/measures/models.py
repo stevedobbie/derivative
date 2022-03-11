@@ -23,4 +23,4 @@ class Measure(models.Model):
 
     # reformat string on admin site
     def __str__(self):
-        return f"{self.drink} - {self.measure_unit_name} ({self.owner})"
+        return f"{self.drink} - {self.measure_unit_name} ({self.owner}) - £{self.offer_to_sell}"
