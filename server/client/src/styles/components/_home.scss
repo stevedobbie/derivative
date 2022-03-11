@@ -56,13 +56,16 @@
 
 .drink-container{
   position: absolute;
-  bottom: 5vh;
-  
+  bottom: 1rem;
 }
 
+// .drink-img-container{
+//   position: absolute;
+// }
+
 .drink-img{
-  height: 50vh;
-  width: 50vw;
+  height: 30rem;
+  width: 100%; // change to rem
   object-fit: contain;
   cursor: pointer;
 }
@@ -72,7 +75,7 @@
 }
 
 #img-1{
-  transform: scale(0.7) translate(0, 9vh);
+  transform: scale(0.7) translate(0, 7rem);
 }
 
 // #img-2{
@@ -80,7 +83,7 @@
 
 
 #img-3{
-  transform: translate(0, 25px);
+  transform: translate(0, 0.5rem);
 }
 
 @keyframes slide {

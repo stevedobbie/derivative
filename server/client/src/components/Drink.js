@@ -551,9 +551,10 @@ const Drink = () => {
   useEffect(() => {
 // delete bid
     const deleteBid = async () => {
-          
-    const bidToDelete = top3Bids[2].id
+    
     if (toggleTwo === 1) {
+      const bidToDelete = top3Bids[2].id
+      
       try {
         const headers = {
           headers: {
@@ -658,7 +659,7 @@ const Drink = () => {
                   <span>({`${drink[0].abv}%`})</span>
                 </Flex>
                 <Divider />
-                <Flex justifyContent='flex-end' mr='1.2rem' my='1.2rem'>Sell</Flex>
+                <Flex justifyContent='flex-end' mr='1rem' my='1.2rem'>{`(${drink[0].bids.length}) Sell`}</Flex>
                   <Flex flexDirection='row'>
                   {top3Bids &&
                   top3Bids.map((bid, index) => {
@@ -701,7 +702,7 @@ const Drink = () => {
                   </span>
                 </Flex>
                 <Divider />
-                <Flex justifyContent='flex-start' my='1.2rem'>Buy</Flex>
+                <Flex justifyContent='flex-start' my='1.2rem' ml='0.8rem'>{`Buy (${drink[0].measures.length})`}</Flex>
                   <Flex flexDirection='row'>
                   {top3Offers &&
                   top3Offers.map((offer, index) => {
