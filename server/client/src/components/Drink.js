@@ -334,7 +334,7 @@ const Drink = () => {
     if (userAuthenticated) {
       
       const priceToUpdate = parseFloat(price)
-      // console.log(priceToUpdate, typeof priceToUpdate)
+      console.log('price of measure ---->', priceToUpdate, typeof priceToUpdate)
       let orchestration = 0
       
       // update logged in user (buyer)
@@ -343,14 +343,16 @@ const Drink = () => {
         const userToUpdate = profile[0].id
 
         let parsedBalance = parseFloat(parseFloat(profile[0].account_balance).toFixed(2))
-        const preAccountBalance = parsedBalance -= priceToUpdate
-        const newAccountBalance = parseFloat(preAccountBalance.toFixed(2))
-        // console.log(newAccountBalance, typeof newAccountBalance)
+        console.log('buyer old balance --->', parsedBalance, typeof parsedBalance)
+        parsedBalance -= priceToUpdate
+        const newAccountBalance = parseFloat(parsedBalance.toFixed(2))
+        console.log('buyer new balance --->', newAccountBalance, typeof newAccountBalance)
       
         let parsedCost = parseFloat(parseFloat(profile[0].cost_as_buyer).toFixed(2))
-        const preCostAsBuyer = parsedCost += priceToUpdate
-        const newCostAsBuyer = parseFloat(preCostAsBuyer.toFixed(2))
-        // console.log(newCostAsBuyer, typeof newCostAsBuyer)
+        console.log('buyer old cost --->', parsedCost, typeof parsedCost)
+        parsedCost += priceToUpdate
+        const newCostAsBuyer = parseFloat(parsedCost.toFixed(2))
+        console.log('buyer new cost --->', newCostAsBuyer, typeof newCostAsBuyer)
 
         try {
           const headers = {
@@ -377,14 +379,16 @@ const Drink = () => {
         const userToUpdate = top3Offers[0].owner.id
         
         let parsedBalance = parseFloat(parseFloat(top3Offers[0].owner.account_balance).toFixed(2))
-        const preAccountBalance = parsedBalance += priceToUpdate
-        const newAccountBalance = parseFloat(preAccountBalance.toFixed(2))
-        // console.log(newAccountBalance, typeof newAccountBalance)
+        console.log('seller old balance --->', parsedBalance, typeof parsedBalance)
+        parsedBalance += priceToUpdate
+        const newAccountBalance = parseFloat(parsedBalance.toFixed(2))
+        console.log('seller new balance --->', newAccountBalance, typeof newAccountBalance)
 
         let parsedIncome = parseFloat(parseFloat(top3Offers[0].owner.income_as_seller).toFixed(2))
-        const preIncomeAsSeller = parsedIncome += priceToUpdate
-        const newIncomeAsSeller = parseFloat(preIncomeAsSeller.toFixed(2))
-        // console.log(newIncomeAsSeller, typeof newIncomeAsSeller)
+        console.log('seller old income --->', parsedIncome, typeof parsedIncome)
+        parsedIncome += priceToUpdate
+        const newIncomeAsSeller = parseFloat(parsedIncome.toFixed(2))
+        console.log('seller old income --->', newIncomeAsSeller, typeof newIncomeAsSeller)
 
         try {
           const headers = {
@@ -450,15 +454,18 @@ const Drink = () => {
       const updateLoggedInUser = async () => {
         const userToUpdate = profile[0].id
 
+        console.log('price of drink --->', priceToUpdate, typeof priceToUpdate)
         let parsedBalance = parseFloat(parseFloat(profile[0].account_balance).toFixed(2))
-        const preAccountBalance = parsedBalance += priceToUpdate
-        const newAccountBalance = parseFloat(preAccountBalance.toFixed(2))
-        // console.log(newAccountBalance, typeof newAccountBalance)
+        console.log('seller old balance --->', parsedBalance, typeof parsedBalance)
+        parsedBalance += priceToUpdate
+        const newAccountBalance = parseFloat(parsedBalance.toFixed(2))
+        console.log('seller new balance --->', newAccountBalance, typeof newAccountBalance)
 
         let parsedIncome = parseFloat(parseFloat(profile[0].income_as_seller).toFixed(2))
-        const preIncomeAsSeller = parsedIncome += priceToUpdate
-        const newIncomeAsSeller = parseFloat(preIncomeAsSeller.toFixed(2))
-        // console.log(newIncomeAsSeller, typeof newIncomeAsSeller)
+        console.log('seller old income --->', parsedIncome, typeof parsedIncome)
+        parsedIncome += priceToUpdate
+        const newIncomeAsSeller = parseFloat(parsedIncome.toFixed(2))
+        console.log('seller new income --->', newIncomeAsSeller, typeof newIncomeAsSeller)
 
         try {
           const headers = {
@@ -468,7 +475,7 @@ const Drink = () => {
           }
           const input = {
             account_balance: newAccountBalance,
-            cost_as_buyer: newIncomeAsSeller
+            income_as_seller: newIncomeAsSeller
           }
           const { data } = await axios.put(`/api/auth/profile/${userToUpdate}/`, input, headers)
           console.log('User has been updated successfully')
@@ -480,19 +487,21 @@ const Drink = () => {
       }
 
       // update current owner (buyer)
-      const updateCurrentOwner = async () => {
+      const updateBuyer = async () => {
 
         const userToUpdate = top3Bids[2].owner.id
 
         let parsedBalance = parseFloat(parseFloat(top3Bids[2].owner.account_balance).toFixed(2))
-        const preAccountBalance = parsedBalance -= priceToUpdate
-        const newAccountBalance = parseFloat(preAccountBalance.toFixed(2))
-        // console.log(newAccountBalance, typeof newAccountBalance)
+        console.log('buyer old balance ---->', parsedBalance, typeof parsedBalance)
+        parsedBalance -= priceToUpdate
+        const newAccountBalance = parseFloat(parsedBalance.toFixed(2))
+        console.log('buyer new balance ---->', newAccountBalance, typeof newAccountBalance)
 
         let parsedCost = parseFloat(parseFloat(top3Bids[2].owner.cost_as_buyer).toFixed(2))
-        const preCostAsBuyer = parsedCost += priceToUpdate
-        const newCostAsBuyer = parseFloat(preCostAsBuyer.toFixed(2))
-        // console.log(newCostAsBuyer, typeof newCostAsBuyer)
+        console.log('buyer old cost ---->', parsedCost, typeof parsedCost)
+        parsedCost += priceToUpdate
+        const newCostAsBuyer = parseFloat(parsedCost.toFixed(2))
+        console.log('buyer new cost ---->', newCostAsBuyer, typeof newCostAsBuyer)
 
         try {
           const headers = {
@@ -541,7 +550,7 @@ const Drink = () => {
         }
       }
       updateLoggedInUser()
-      updateCurrentOwner()
+      updateBuyer()
       exchangeMeasure()
     }
     onClose()
